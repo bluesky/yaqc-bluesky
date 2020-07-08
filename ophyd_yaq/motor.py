@@ -3,6 +3,7 @@ import yaqc
 import threading
 import time
 
+
 class YaqMotor(Device):
     setpoint = Cpt(Signal, kind="hinted")
     readback = Cpt(Signal)
