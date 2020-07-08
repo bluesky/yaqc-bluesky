@@ -8,10 +8,12 @@ class YaqMotor(Device):
     readback = Cpt(Signal)
     busy = Cpt(Signal, kind="omitted")
 
-    def __init__(self, port, *, name):
+    def __init__(self, port, *, name=None):
         self._client = yaqc.Client(port)
-        assert 'has-position' in self._client.send('get_traits')
+        assert 'has-position' in self._client.traits
         self._busy_lock = threading.Lock()
+        if name is None:
+            name = self._client.id()["name"]
         super().__init__(name=name)
         # force initial reading
         self._read_yaq()
@@ -19,14 +21,14 @@ class YaqMotor(Device):
     def set(self, value):
         with self._busy_lock:
             self.busy.put(1)
-        self._client.send("set_position", value)
+        self._client.set_position(value)
         st = DeviceStatus(self)
 
         def poll_busy():
-            busy = self._client.send('busy')
+            busy = self._client.busy()
             while busy:
                 time.sleep(.1)
-                busy = self._client.send('busy')
+                busy = self._client.busy()
             with self._busy_lock:
                 self.busy.put(int(busy))
             st._finished()
@@ -37,10 +39,9 @@ class YaqMotor(Device):
         return st
 
     def _read_yaq(self):
-        v = self._client.send("get_state")
-        self.setpoint.put(v["destination"])
-        self.readback.put(v["position"])
-        b = self._client.send('busy')
+        self.setpoint.put(self._client.get_destination())
+        self.readback.put(self._client.get_position())
+        b = self._client.busy()
         with self._busy_lock:
             self.busy.put(int(b))
 
