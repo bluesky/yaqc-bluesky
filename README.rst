@@ -2,8 +2,9 @@
 ophyd-yaq
 =========
 
-.. image:: https://img.shields.io/travis/com/bluesky/ophyd-yaq.svg
+.. image:: https://img.shields.io/travis/com/bluesky/ophyd-yaq   :alt: Travis (.com)
         :target: https://travis-ci.com/bluesky/ophyd-yaq
+
 
 .. image:: https://img.shields.io/pypi/v/ophyd-yaq.svg
         :target: https://pypi.python.org/pypi/ophyd-yaq
