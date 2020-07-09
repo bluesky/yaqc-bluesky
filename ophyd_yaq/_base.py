@@ -13,13 +13,6 @@ class Base(Device):
             name = self.yaq_client.id()["name"]
         super().__init__(name=name)
 
-    def _read_yaq(self):
-        self.setpoint.put(self.yaq_client.get_destination())
-        self.readback.put(self.yaq_client.get_position())
-        b = self.yaq_client.busy()
-        with self._busy_lock:
-            self.busy.put(int(b))
-
     def read(self):
         self._read_yaq()
         return super().read()
