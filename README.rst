@@ -16,8 +16,8 @@ To communicate with a yaq daemon, simply create an ophyd device::
     import ophyd_yaq
     device = ophyd_yaq.Device(port=39000)
 
-Of course, you may also provide `host` as an argument (default localhost).
-You may also optionally provide `name`, if you wish the ophyd device to have a different name than the yaq daemon.
+Of course, you may also provide :code:`host` as an argument (default localhost).
+You may also optionally provide :code:`name`, if you wish the ophyd device to have a different name than the yaq daemon.
 
-`ophyd_yaq` only exposes a subset of the functionality of yaq daemons.
+:code:`ophyd_yaq` only exposes a subset of the functionality of yaq daemons.
 Python users wishing to communicate with yaq may also be interested in `yaqc <https://python.yaq.fyi/yaqc/>`_.
