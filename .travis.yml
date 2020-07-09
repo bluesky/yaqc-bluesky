@@ -9,7 +9,7 @@ cache:
 install:
   - pip install .
   - pip install -r requirements-dev.txt
-  - pip install yaqd-fake
+  - pip install yaqd-fakes
 
 jobs:
   include:
