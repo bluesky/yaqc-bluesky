@@ -31,10 +31,11 @@ jobs:
       name: "flake8"
       script:
       - flake8
-    - stage: deploy
-      name: "pypi"
-      provider: pypi
-      username: "__token__"
-      password: NOTAPASSWORD
-      on:
-        tags: true
+
+deploy:
+  name: "pypi"
+  provider: pypi
+  username: "__token__"
+  password: NOTAPASSWORD
+  on:
+    tags: true
