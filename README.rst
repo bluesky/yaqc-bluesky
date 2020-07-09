@@ -9,13 +9,14 @@ ophyd-yaq
         :target: https://pypi.python.org/pypi/ophyd-yaq
 
 
-An ophyd interface to the `yaq instrument control framework <https://yaq.fyi/>`_
+An ophyd interface to the `yaq instrument control framework <https://yaq.fyi/>`_.
 
 To communicate with a yaq daemon, simply create an ophyd device::
 
     import ophyd_yaq
     device = ophyd_yaq.Device(port=39000)
 
+:code:`ophyd_yaq` will read the traits from the daemon and return an appropriate device instance based on what it finds.
 Of course, you may also provide :code:`host` as an argument (default localhost).
 You may also optionally provide :code:`name`, if you wish the ophyd device to have a different name than the yaq daemon.
 
