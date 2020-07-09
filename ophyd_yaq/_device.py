@@ -16,6 +16,5 @@ def Device(port, *, host="127.0.0.1", name=None):
         clss.append(Sensor)
     cls = type("YaqDevice", tuple(clss), {})
     obj = cls(yaq_client=c, name=name)
-    print(obj.setpoint)
     obj._read_yaq()  # force initial reading to get things started
     return obj

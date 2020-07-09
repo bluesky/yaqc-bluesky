@@ -16,15 +16,23 @@ class Hardware(Base):
         st = DeviceStatus(self)
 
         def poll_busy():
-            busy = self.yaq_client.busy()
-            while busy:
-                time.sleep(.1)
-                busy = self.yaq_client.busy()
+            while True:
+                self._read_yaq()
+                if self.yaq_client.busy():
+                    time.sleep(0.1)
+                else:
+                    break
             with self._busy_lock:
-                self.busy.put(int(busy))
+                self.busy.put(False)
             st._finished()
 
         threading.Thread(target=poll_busy).start()
         # update the signals
-        self._read_yaq()
         return st
+
+    def _read_yaq(self):
+        self.setpoint.put(self.yaq_client.get_destination())
+        self.readback.put(self.yaq_client.get_position())
+        b = self.yaq_client.busy()
+        with self._busy_lock:
+            self.busy.put(int(b))
