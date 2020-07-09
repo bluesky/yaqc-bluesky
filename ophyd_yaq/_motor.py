@@ -1,10 +1,10 @@
-from ophyd import Device, Component as Cpt, Signal, DeviceStatus
+from ophyd import Component as Cpt, Signal, DeviceStatus
 import yaqc
 import threading
 import time
 
 
-class YaqMotor(Device):
+class HasPosition():
     setpoint = Cpt(Signal, kind="hinted")
     readback = Cpt(Signal)
     busy = Cpt(Signal, kind="omitted")
