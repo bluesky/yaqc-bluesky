@@ -33,14 +33,9 @@ jobs:
       script:
       - flake8
     - stage: deploy
-      name: "docs"
-      script:
-      - make -C docs html  # Build the documentation.
-    - stage: deploy
-      name: "twine"
-      script:
-      - echo "todo: actually release with twine"
-
-deploy:
-  on:
-    tags: true
+      name: "pypi"
+      provider: pypi
+      username: "__token__"
+      password: NOTAPASSWORD
+      on:
+        tags: true
