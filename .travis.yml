@@ -1,8 +1,6 @@
 language: python
 python:
-  - "3.7"
   - "3.8"
-  - "nightly"
 cache:
   directories:
     - $HOME/.cache/pip
@@ -16,13 +14,26 @@ install:
 jobs:
   include:
     - stage: test
+      name: "pytest"
+      python:
+        - "3.7"
+	- "3.8"
+	- "nightly"
       script:
       - coverage run -m pytest  # Run the tests and check for test coverage.
       - coverage report -m  # Generate test coverage report.
       - codecov  # Upload the report to codecov.
     - stage: test
+      name: "flake8"
       script:
       - flake8
     - stage: deploy
+      name: "docs"
+      on: tags: true
       script:
       - make -C docs html  # Build the documentation.
+    - stage: deploy
+      name: "twine"
+      on: tags: true
+      script:
+      - echo "todo: actually release with twine"
