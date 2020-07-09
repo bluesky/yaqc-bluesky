@@ -3,7 +3,6 @@ __all__ = ["Device"]
 
 import yaqc
 
-from ._base import Base
 from ._hardware import Hardware
 from ._sensor import Sensor
 

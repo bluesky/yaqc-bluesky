@@ -1,7 +1,5 @@
-from ophyd import Device, Component as Cpt, Signal, DeviceStatus
-import yaqc
+from ophyd import Device, Component as Cpt, Signal
 import threading
-import time
 
 
 class Base(Device):
