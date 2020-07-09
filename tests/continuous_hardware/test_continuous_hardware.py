@@ -3,14 +3,16 @@ import subprocess
 import time
 import math
 import ophyd_yaq
+from bluesky import RunEngine
+from bluesky.plans import scan
 
 
 config = pathlib.Path(__file__).parent / "config.toml"
 
 
-def run_daemon(kind, config):
+def run_daemon_entry_point(kind, config):
     def decorator(function):
-        def wrapper(kind=kind, config=config, function=function):
+        def wrapper():
             with subprocess.Popen([f"yaqd-{kind}", "--config", config]) as proc:
                 tries = 100
                 while True:
@@ -18,7 +20,7 @@ def run_daemon(kind, config):
                         break
                     try:
                         function()
-                    except ConnectionRefusedError:
+                    except ConnectionError:
                         time.sleep(0.1)
                     else:
                         break
@@ -28,7 +30,7 @@ def run_daemon(kind, config):
     return decorator
 
 
-@run_daemon("fake-continuous-hardware", config=config)
+@run_daemon_entry_point("fake-continuous-hardware", config=config)
 def test_set():
     d = ophyd_yaq.Device(39424)
     d.set(0)
@@ -39,5 +41,17 @@ def test_set():
     assert math.isclose(d.readback.get(), 1)
 
 
+@run_daemon_entry_point("fake-continuous-hardware", config=config)
+def test_scan():
+    # for now, basically a smoke test
+    d = ophyd_yaq.Device(39424)
+    RE = RunEngine({})
+    RE(scan([], d, -1, 1, 10))
+    assert math.isclose(d.readback.get(), 1)
+
+
+
+
 if __name__ == "__main__":
     test_set()
+    test_scan()
