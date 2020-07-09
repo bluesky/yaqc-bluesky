@@ -3,7 +3,7 @@ ophyd-yaq
 =========
 
 .. image:: https://img.shields.io/travis/bluesky/ophyd-yaq.svg
-        :target: https://travis-ci.org/bluesky/ophyd-yaq
+        :target: https://travis-ci.com/bluesky/ophyd-yaq
 
 .. image:: https://img.shields.io/pypi/v/ophyd-yaq.svg
         :target: https://pypi.python.org/pypi/ophyd-yaq
