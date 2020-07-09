@@ -50,8 +50,6 @@ def test_scan():
     assert math.isclose(d.readback.get(), 1)
 
 
-
-
 if __name__ == "__main__":
     test_set()
     test_scan()
