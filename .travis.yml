@@ -13,27 +13,34 @@ install:
 
 jobs:
   include:
-    - stage: test
-      name: "pytest"
-      python:
-        - "3.7"
-	- "3.8"
-	- "nightly"
+    - &pytest
+      stage: test
+      name: "pytest-nightly"
+      python: nightly
       script:
       - coverage run -m pytest  # Run the tests and check for test coverage.
       - coverage report -m  # Generate test coverage report.
       - codecov  # Upload the report to codecov.
+    - <<: *pytest
+      name: "pytest-3.8"
+      python: 3.8
+    - <<: *pytest
+      name: "pytest-3.7"
+      python: 3.7
     - stage: test
+      install: skip
       name: "flake8"
       script:
       - flake8
     - stage: deploy
       name: "docs"
-      on: tags: true
       script:
       - make -C docs html  # Build the documentation.
     - stage: deploy
       name: "twine"
-      on: tags: true
       script:
       - echo "todo: actually release with twine"
+
+deploy:
+  on:
+    tags: true
