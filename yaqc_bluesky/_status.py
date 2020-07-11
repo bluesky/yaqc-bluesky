@@ -171,24 +171,6 @@ class Status:
         """
         return self._event.is_set()
 
-    @done.setter
-    def done(self, value):
-        # For now, allow this setter to work only if it has no effect.
-        # In a future release, make this property not settable.
-        if bool(self._event.is_set()) != bool(value):
-            raise RuntimeError(
-                "The done-ness of a status object cannot be changed by "
-                "setting its `done` attribute directly. Call `set_finished()` "
-                "or `set_exception(exc).")
-        warn(
-            "Do not set the `done` attribute of a status object directly. "
-            "It should only be set indirectly by calling `set_finished()` "
-            "or `set_exception(exc)`. "
-            "Direct setting was never intended to be supported and it will be "
-            "disallowed in a future release of ophyd, causing this code path "
-            "to fail.",
-            UserWarning)
-
     @property
     def success(self):
         """
@@ -198,24 +180,6 @@ class Status:
         :meth:`_finished`. Once True, it can never become False.
         """
         return self.done and self._exception is None
-
-    @success.setter
-    def success(self, value):
-        # For now, allow this setter to work only if it has no effect.
-        # In a future release, make this property not settable.
-        if bool(self.success) != bool(value):
-            raise RuntimeError(
-                "The success state of a status object cannot be changed by "
-                "setting its `success` attribute directly. Call "
-                "`set_finished()` or `set_exception(exc)`.")
-        warn(
-            "Do not set the `success` attribute of a status object directly. "
-            "It should only be set indirectly by calling `set_finished()` "
-            "or `set_exception(exc)`. "
-            "Direct setting was never intended to be supported and it will be "
-            "disallowed in a future release of ophyd, causing this code path "
-            "to fail.",
-            UserWarning)
 
     def _handle_failure(self):
         pass
@@ -449,9 +413,6 @@ class Status:
         ----------
         callback: callable
             Expected signature: ``callback(status)``.
-            The signature ``callback()`` is also supported for
-            backward-compatibility but will issue warnings. Support will be
-            removed in a future release of ophyd.
         """
         with self._lock:
             if self.done:
