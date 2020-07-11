@@ -1,13 +1,12 @@
-from ophyd import BlueskyInterface, Component as Cpt, Signal, DeviceStatus
 import threading
 from collections import OrderedDict
 import time
-from typing import Dict, List, Optional, Any, Union, Sequence, Set
+from typing import Dict, List
 
 from ._base import Base
 
 
-class Sensor(BlueskyInterface):
+class Sensor(Base):
     busy = Cpt(Signal, kind="omitted")
 
     def __init__(self, yaq_client, name):
