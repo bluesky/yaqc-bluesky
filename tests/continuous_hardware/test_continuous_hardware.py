@@ -10,6 +10,8 @@ from bluesky.plans import scan
 config = pathlib.Path(__file__).parent / "config.toml"
 
 
+
+
 def run_daemon_entry_point(kind, config):
     def decorator(function):
         def wrapper():
@@ -22,11 +24,16 @@ def run_daemon_entry_point(kind, config):
                         function()
                     except ConnectionError:
                         time.sleep(0.1)
+                    except:
+                        proc.terminate()
+                        raise
                     else:
                         break
                     tries -= 1
                 proc.terminate()
+
         return wrapper
+
     return decorator
 
 
