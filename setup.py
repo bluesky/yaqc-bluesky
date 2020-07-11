@@ -41,7 +41,7 @@ setup(
     long_description=readme,
     author="Thomas A Caswell",
     author_email='tcaswell@bnl.gov',
-    url='https://github.com/bluesky/ophyd-yaq',
+    url='https://github.com/bluesky/yaqc-bluesky',
     python_requires='>={}'.format('.'.join(str(n) for n in min_version)),
     packages=find_packages(exclude=['docs', 'tests']),
     entry_points={
@@ -51,7 +51,7 @@ setup(
     },
     include_package_data=True,
     package_data={
-        'ophyd_yaq': [
+        'yaqc_bluesky': [
             # When adding files here, remember to update MANIFEST.in as well,
             # or else they will not be included in the distribution on PyPI!
             # 'path/to/data_file',
