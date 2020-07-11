@@ -35,6 +35,7 @@ def run_daemon_entry_point(kind, config):
 @run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_read():
     d = yaqc_bluesky.Device(39425)
+    d.trigger()
     d._wait_until_still()
     assert -1 <= d.read()["random_walk"]["value"] <= 1
 
