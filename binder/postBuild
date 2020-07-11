@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # launch yaq daemons
-yaqd-fake-continuous-hardware --config /binder/fake-continuous-hardware-config.toml &
+cd binder
+yaqd-fake-continuous-hardware --config fake-continuous-hardware-config.toml &
+cd ..
 yaqd scan
 
 # import the workspace into JupyterLab
