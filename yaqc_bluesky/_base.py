@@ -53,3 +53,16 @@ class Base:
 
     def describe_configuration(self) -> OrderedDict:
         return OrderedDict()
+
+    def _wait_until_still(self):
+        st = Status()
+        def poll():
+            while True:
+                r = self.read()
+                if r["busy"]["value"]:
+                    time.sleep(0.1)
+                else:
+                    break
+            st._finished()
+        threading.Thread(target=poll).start()
+        return st

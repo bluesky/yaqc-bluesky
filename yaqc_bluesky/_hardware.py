@@ -17,16 +17,4 @@ class Hardware(Base):
     def set(self, value):
         print(value)
         self.yaq_client.set_position(value)
-        st = Status()
-
-        def poll_busy():
-            while True:
-                r = self.read()
-                if r["busy"]["value"]:
-                    time.sleep(0.1)
-                else:
-                    break
-            st._finished()
-
-        threading.Thread(target=poll_busy).start()
-        return st
+        return self._wait_until_still()
