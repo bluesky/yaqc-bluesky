@@ -1,9 +1,6 @@
 from collections import OrderedDict
-import threading
-import time
 
 from ._base import Base
-from ._status import Status
 
 
 class Hardware(Base):

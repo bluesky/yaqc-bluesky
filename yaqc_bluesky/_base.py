@@ -56,6 +56,7 @@ class Base:
 
     def _wait_until_still(self):
         st = Status()
+
         def poll():
             while True:
                 r = self.read()
@@ -64,5 +65,6 @@ class Base:
                 else:
                     break
             st._finished()
+
         threading.Thread(target=poll).start()
         return st

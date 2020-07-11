@@ -1,10 +1,7 @@
 import pathlib
-import subprocess
 import time
-import math
+import subprocess
 import yaqc_bluesky
-from bluesky import RunEngine
-from bluesky.plans import scan
 
 
 config = pathlib.Path(__file__).parent / "config.toml"
