@@ -354,6 +354,7 @@ class Status:
         success : bool, optional
            if the action succeeded.
         """
+        print("finished")
         if success:
             self.set_finished()
         else:
