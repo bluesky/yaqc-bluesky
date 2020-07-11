@@ -10,7 +10,7 @@ import versioneer
 min_version = (3, 7)
 if sys.version_info < min_version:
     error = """
-ophyd-yaq does not support Python {0}.{1}.
+yaqc-bluesky does not support Python {0}.{1}.
 Python {2}.{3} and above is required. Check your Python version like so:
 
 python3 --version
@@ -34,10 +34,10 @@ with open(path.join(here, 'requirements.txt')) as requirements_file:
 
 
 setup(
-    name='ophyd-yaq',
+    name='yaqc-bluesky',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    description="Wrap yaq client with ohpyd",
+    description="A bluesky interface for the yaq instrument control framework.",
     long_description=readme,
     author="Thomas A Caswell",
     author_email='tcaswell@bnl.gov',

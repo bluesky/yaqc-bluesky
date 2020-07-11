@@ -2,7 +2,7 @@ import pathlib
 import subprocess
 import time
 import math
-import ophyd_yaq
+import yaqc_bluesky
 from bluesky import RunEngine
 from bluesky.plans import scan
 
@@ -37,7 +37,7 @@ def run_daemon_entry_point(kind, config):
 
 @run_daemon_entry_point("fake-continuous-hardware", config=config)
 def test_set():
-    d = ophyd_yaq.Device(39424)
+    d = yaqc_bluesky.Device(39424)
     d.set(0)
     time.sleep(2)
     assert math.isclose(d.read()["readback"]["value"], 0)
@@ -49,7 +49,7 @@ def test_set():
 @run_daemon_entry_point("fake-continuous-hardware", config=config)
 def test_scan():
     # for now, basically a smoke test
-    d = ophyd_yaq.Device(39424)
+    d = yaqc_bluesky.Device(39424)
     RE = RunEngine({})
     RE(scan([], d, -1, 0.33, 10))
     assert math.isclose(d.read()["readback"]["value"], 0.33, abs_tol=1e-6)
