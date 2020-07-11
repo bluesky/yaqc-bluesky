@@ -28,7 +28,7 @@ class Base:
         return st
 
     def _read(self, out, ts) -> OrderedDict:
-        out["busy"] = {"value" : self.yaq_client.busy(), "timestamp" : ts}
+        out["busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
         return out
 
     def read(self) -> OrderedDict:

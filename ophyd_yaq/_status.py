@@ -3,7 +3,6 @@ __all__ = ["Status"]
 
 from collections import deque
 import threading
-import time
 from warnings import warn
 
 from ._exceptions import (
@@ -11,6 +10,7 @@ from ._exceptions import (
     UnknownStatusFailure,
     StatusTimeoutError,
     WaitTimeoutError,
+    UseNewProperty,
 )
 
 

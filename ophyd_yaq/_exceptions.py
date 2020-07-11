@@ -34,6 +34,10 @@ class StatusTimeoutError(TimeoutError, YaqcBlueskyException):
     ...
 
 
+class UseNewProperty(RuntimeError, YaqcBlueskyException):
+    ...
+
+
 class WaitTimeoutError(TimeoutError, YaqcBlueskyException):
     """
     TimeoutError raised when we ware waiting on completion of a task.

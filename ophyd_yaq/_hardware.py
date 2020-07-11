@@ -10,8 +10,8 @@ class Hardware(Base):
 
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
-        out["setpoint"] = {"value" : self.yaq_client.get_destination(), "timestamp" : ts}
-        out["readback"] = {"value" : self.yaq_client.get_position(), "timestamp" : ts}
+        out["setpoint"] = {"value": self.yaq_client.get_destination(), "timestamp": ts}
+        out["readback"] = {"value": self.yaq_client.get_position(), "timestamp": ts}
         return out
 
     def set(self, value):
