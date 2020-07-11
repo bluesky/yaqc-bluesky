@@ -1,18 +1,55 @@
-from ophyd import Device, Component as Cpt, Signal
+__all__ = ["Base"]
+
+
+from collections import OrderedDict
 import threading
+import time
+
+from ._status import Status
 
 
-class Base(Device):
-    busy = Cpt(Signal, kind="omitted")
+class Base:
 
-    def __init__(self, yaq_client, name):
+    def __init__(self, yaq_client, *, name=None):
         self.yaq_client = yaq_client
         self.yaq_traits = yaq_client.traits
-        self._busy_lock = threading.Lock()
         if name is None:
-            name = self.yaq_client.id()["name"]
-        super().__init__(name=name)
+            self.name = self.yaq_client.id()["name"]
+        else:
+            self.name = name
+        self.parent = None
+        self.hints = {}
+        self._lock = threading.Lock()
 
-    def read(self):
-        self._read_yaq()
-        return super().read()
+    def trigger(self) -> Status:
+        # should be overloaded for those devices that need a trigger
+        st = Status()
+        st._finished()
+        return st
+
+    def _read(self, out, ts) -> OrderedDict:
+        out["busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
+        return out
+
+    def read(self) -> OrderedDict:
+        with self._lock:
+            out = OrderedDict()
+            ts = time.time()
+            out = self._read(out, ts)
+        return out
+
+    def read_configuration(self) -> OrderedDict:
+        return OrderedDict()
+
+    def set(self, position) -> Status:
+        raise NotImplementedError
+
+    def describe(self) -> OrderedDict:
+        out = OrderedDict()
+        out["position"] = {'source': 'XF23-ID:SOME_PV_NAME',
+                           'dtype': 'number',
+                           'shape': []}
+        return out
+
+    def describe_configuration(self) -> OrderedDict:
+        return OrderedDict()

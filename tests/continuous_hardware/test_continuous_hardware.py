@@ -22,11 +22,16 @@ def run_daemon_entry_point(kind, config):
                         function()
                     except ConnectionError:
                         time.sleep(0.1)
+                    except Exception:
+                        proc.terminate()
+                        raise
                     else:
                         break
                     tries -= 1
                 proc.terminate()
+
         return wrapper
+
     return decorator
 
 
@@ -35,10 +40,10 @@ def test_set():
     d = ophyd_yaq.Device(39424)
     d.set(0)
     time.sleep(2)
-    assert math.isclose(d.readback.get(), 0)
+    assert math.isclose(d.read()["readback"]["value"], 0)
     d.set(1)
     time.sleep(2)
-    assert math.isclose(d.readback.get(), 1)
+    assert math.isclose(d.read()["readback"]["value"], 1, abs_tol=1e-6)
 
 
 @run_daemon_entry_point("fake-continuous-hardware", config=config)
@@ -46,8 +51,8 @@ def test_scan():
     # for now, basically a smoke test
     d = ophyd_yaq.Device(39424)
     RE = RunEngine({})
-    RE(scan([], d, -1, 1, 10))
-    assert math.isclose(d.readback.get(), 1)
+    RE(scan([], d, -1, 0.33, 10))
+    assert math.isclose(d.read()["readback"]["value"], 0.33, abs_tol=1e-6)
 
 
 if __name__ == "__main__":

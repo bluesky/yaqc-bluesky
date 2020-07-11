@@ -12,9 +12,9 @@ def Device(port, *, host="127.0.0.1", name=None):
     clss = []
     if "has-position" in c.traits:
         clss.append(Hardware)
+        cls = type("YaqDevice", tuple(clss), {})
+        obj = cls(yaq_client=c, name=name)
+        obj.read()  # force initial reading to get things started
     if "is-sensor" in c.traits:
-        clss.append(Sensor)
-    cls = type("YaqDevice", tuple(clss), {})
-    obj = cls(yaq_client=c, name=name)
-    obj._read_yaq()  # force initial reading to get things started
+        obj = Sensor(yaq_client=c, name=name)
     return obj
