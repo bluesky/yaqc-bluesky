@@ -1,5 +1,4 @@
+yaqd-control
 yaqc
 yaqd-fakes
-yaqd-control
 bluesky
-jupyterlab>=1.0
