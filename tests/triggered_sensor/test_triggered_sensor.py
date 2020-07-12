@@ -33,6 +33,15 @@ def run_daemon_entry_point(kind, config):
 
 
 @run_daemon_entry_point("fake-triggered-sensor", config=config)
+def test_describe_read():
+    d = yaqc_bluesky.Device(39425)
+    d.trigger()
+    describe_keys = list(d.describe().keys())
+    read_keys = list(d.read().keys())
+    assert describe_keys == read_keys
+
+
+@run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_read():
     d = yaqc_bluesky.Device(39425)
     d.trigger()
@@ -41,4 +50,5 @@ def test_read():
 
 
 if __name__ == "__main__":
+    test_describe_read()
     test_read()
