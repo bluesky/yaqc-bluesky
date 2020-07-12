@@ -2,3 +2,4 @@ yaqd-control
 yaqc
 yaqd-fakes
 bluesky
+matplotlib
