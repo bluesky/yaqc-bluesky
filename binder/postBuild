@@ -2,6 +2,3 @@
 
 # import the workspace into JupyterLab
 jupyter lab workspaces import ${REPO_DIR}/binder/workspace.json
-
-# run daemons
-${REPO_DIR}/binder/launch-daemons.sh
