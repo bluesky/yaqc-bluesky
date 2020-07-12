@@ -46,7 +46,7 @@ def test_read():
     d = yaqc_bluesky.Device(39425)
     d.trigger()
     d._wait_until_still()
-    assert -1 <= d.read()["random_walk"]["value"] <= 1
+    assert -1 <= d.read()[f"{d.name}_random_walk"]["value"] <= 1
 
 
 if __name__ == "__main__":

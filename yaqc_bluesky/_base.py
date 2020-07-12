@@ -79,7 +79,7 @@ class Base:
         def poll():
             while True:
                 r = self.read()
-                if r["busy"]["value"]:
+                if r[f"{self.name}_busy"]["value"]:
                     time.sleep(0.1)
                 else:
                     break

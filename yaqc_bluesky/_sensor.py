@@ -19,7 +19,7 @@ class Sensor(Base):
             meta["dtype"] = "number"
             meta["units"] = self._yaq_channel_units[name]
             meta["shape"] = self._yaq_channel_shapes[name]
-            out[name] = OrderedDict(self._field_metadata, **meta)
+            out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
         return out
 
     @property
