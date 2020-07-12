@@ -23,7 +23,7 @@ class Base:
         self._lock = threading.Lock()
 
     def _describe(self, out):
-        out["busy"] = OrderedDict(self._field_metadata, **{"dtype": "boolean"})
+        out[f"{self.name}_busy"] = OrderedDict(self._field_metadata, **{"dtype": "boolean"})
         return out
 
     def describe(self) -> OrderedDict:
@@ -51,7 +51,7 @@ class Base:
         return out
 
     def _read(self, out, ts) -> OrderedDict:
-        out["busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
+        out[f"{self.name}_busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
         return out
 
     def read(self) -> OrderedDict:

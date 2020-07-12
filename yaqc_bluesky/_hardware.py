@@ -14,8 +14,8 @@ class Hardware(Base):
         meta = OrderedDict()
         meta["dtype"] = "number"
         meta["units"] = self.yaq_units
-        out["setpoint"] = OrderedDict(self._field_metadata, **meta)
-        out["readback"] = OrderedDict(self._field_metadata, **meta)
+        out[f"{self.name}_setpoint"] = OrderedDict(self._field_metadata, **meta)
+        out[f"{self.name}_readback"] = OrderedDict(self._field_metadata, **meta)
         return out
 
     @property
@@ -26,8 +26,8 @@ class Hardware(Base):
 
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
-        out["setpoint"] = {"value": self.yaq_client.get_destination(), "timestamp": ts}
-        out["readback"] = {"value": self.yaq_client.get_position(), "timestamp": ts}
+        out[f"{self.name}_setpoint"] = {"value": self.yaq_client.get_destination(), "timestamp": ts}
+        out[f"{self.name}_readback"] = {"value": self.yaq_client.get_position(), "timestamp": ts}
         return out
 
     def set(self, value):

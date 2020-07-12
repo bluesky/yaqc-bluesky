@@ -10,7 +10,7 @@ class Sensor(Base):
         super().__init__(yaq_client, name=name)
         self._yaq_channel_names = self.yaq_client.get_channel_names()
         self._yaq_channel_units = self.yaq_client.get_channel_units()
-        self._yaq_channel_shapes = {k: None for k in self._yaq_channel_names}  # upstream broken
+        self._yaq_channel_shapes = {k: tuple() for k in self._yaq_channel_names}  # upstream broken
 
     def _describe(self, out):
         out = super()._describe(out)
@@ -25,14 +25,14 @@ class Sensor(Base):
     @property
     def hints(self):
         out = super().hints
-        out["fields"] += self._yaq_channel_names
+        out["fields"] += [f"{self.name}_{n}" for n in self._yaq_channel_names]
         return out
 
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
         measured = self.yaq_client.get_measured()  # locked by behavior of super().read
         for name in self._yaq_channel_names:
-            out[name] = {"value": measured[name], "timestamp": ts}
+            out[f"{self.name}_{name}"] = {"value": measured[name], "timestamp": ts}
         return out
 
     def trigger(self) -> Status:
