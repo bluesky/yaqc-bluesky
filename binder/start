@@ -1,5 +1,5 @@
 # launch yaq daemons
 cd binder
-yaqd-fake-continuous-hardware --config fake-continuous-hardware-config.toml &
+#yaqd-fake-continuous-hardware --config fake-continuous-hardware-config.toml &
 cd ..
 yaqd scan
