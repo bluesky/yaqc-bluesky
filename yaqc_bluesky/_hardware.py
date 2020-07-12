@@ -31,6 +31,5 @@ class Hardware(Base):
         return out
 
     def set(self, value):
-        print(value)
         self.yaq_client.set_position(value)
         return self._wait_until_still()
