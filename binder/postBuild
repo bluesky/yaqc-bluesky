@@ -1,4 +1,7 @@
 #!/bin/bash
 
+# install yaqc-bluesky from source
+python -m pip install .
+
 # import the workspace into JupyterLab
 jupyter lab workspaces import ${REPO_DIR}/binder/workspace.json
