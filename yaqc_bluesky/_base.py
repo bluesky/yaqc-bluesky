@@ -4,6 +4,7 @@ __all__ = ["Base"]
 from collections import OrderedDict
 import threading
 import time
+from typing import Dict
 
 from ._status import Status
 
@@ -13,22 +14,44 @@ class Base:
     def __init__(self, yaq_client, *, name=None):
         self.yaq_client = yaq_client
         self.yaq_traits = yaq_client.traits
+        self.yaq_name = self.yaq_client.id()["name"]
         if name is None:
-            self.name = self.yaq_client.id()["name"]
+            self.name = self.yaq_name
         else:
             self.name = name
         self.parent = None
-        self.hints = {}
         self._lock = threading.Lock()
 
-    def trigger(self) -> Status:
-        # should be overloaded for those devices that need a trigger
-        st = Status()
-        st._finished()
-        return st
+    def _describe(self, out):
+        out[f"{self.name}_busy"] = OrderedDict(self._field_metadata, **{"dtype": "boolean"})
+        return out
+
+    def describe(self) -> OrderedDict:
+        out = OrderedDict()
+        out = self._describe(out)
+        return out
+
+    def describe_configuration(self) -> OrderedDict:
+        return OrderedDict()
+
+    @property
+    def _field_metadata(self) -> OrderedDict:
+        """Metadata to be shared by all fields for this daemon."""
+        out = OrderedDict()
+        out["source"]  = f"yaq:{self.yaq_name}"
+        out["yaq_port"] = self.yaq_client._port
+        out["yaq_host"] = self.yaq_client._host
+        out["shape"] = tuple()  # should be None, but upstream bluesky is broken
+        return out
+
+    @property
+    def hints(self) -> Dict:
+        out = {}
+        out["fields"] = []
+        return out
 
     def _read(self, out, ts) -> OrderedDict:
-        out["busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
+        out[f"{self.name}_busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
         return out
 
     def read(self) -> OrderedDict:
@@ -44,15 +67,11 @@ class Base:
     def set(self, position) -> Status:
         raise NotImplementedError
 
-    def describe(self) -> OrderedDict:
-        out = OrderedDict()
-        out["position"] = {'source': 'XF23-ID:SOME_PV_NAME',
-                           'dtype': 'number',
-                           'shape': []}
-        return out
-
-    def describe_configuration(self) -> OrderedDict:
-        return OrderedDict()
+    def trigger(self) -> Status:
+        # should be overloaded for those devices that need a trigger
+        st = Status()
+        st._finished()
+        return st
 
     def _wait_until_still(self):
         st = Status()
@@ -60,7 +79,7 @@ class Base:
         def poll():
             while True:
                 r = self.read()
-                if r["busy"]["value"]:
+                if r[f"{self.name}_busy"]["value"]:
                     time.sleep(0.1)
                 else:
                     break

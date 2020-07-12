@@ -9,6 +9,8 @@ yaqc-bluesky
 .. image:: https://img.shields.io/pypi/v/yaqc-bluesky.svg
         :target: https://pypi.python.org/pypi/yaqc-bluesky
 
+.. image:: https://mybinder.org/badge.svg
+	:target: https://mybinder.org/v2/gh/bluesky/yaqc-bluesky/master?urlpath=lab
 
 An bluesky interface to the `yaq instrument control framework <https://yaq.fyi/>`_.
 

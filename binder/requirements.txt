@@ -1,0 +1,8 @@
+yaqd-control
+yaqc
+yaqd-fakes
+bluesky
+matplotlib
+ipympl
+ipywidgets
+

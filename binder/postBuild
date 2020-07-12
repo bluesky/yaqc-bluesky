@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# install yaqc-bluesky from source
+python -m pip install .
+
+# install extension that supports '%matplotlib widget'.
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install jupyter-matplotlib
+
+# import the workspace into JupyterLab
+jupyter lab workspaces import ${REPO_DIR}/binder/workspace.json

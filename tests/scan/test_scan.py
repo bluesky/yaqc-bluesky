@@ -2,9 +2,11 @@ import pathlib
 import time
 import subprocess
 import yaqc_bluesky
+from bluesky import RunEngine
+from bluesky.plans import scan
 
 
-config = pathlib.Path(__file__).parent / "config.toml"
+__here__ = pathlib.Path(__file__).parent
 
 
 def run_daemon_entry_point(kind, config):
@@ -32,23 +34,14 @@ def run_daemon_entry_point(kind, config):
     return decorator
 
 
-@run_daemon_entry_point("fake-triggered-sensor", config=config)
-def test_describe_read():
-    d = yaqc_bluesky.Device(39425)
-    d.trigger()
-    describe_keys = list(d.describe().keys())
-    read_keys = list(d.read().keys())
-    assert describe_keys == read_keys
-
-
-@run_daemon_entry_point("fake-triggered-sensor", config=config)
-def test_read():
-    d = yaqc_bluesky.Device(39425)
-    d.trigger()
-    d._wait_until_still()
-    assert -1 <= d.read()[f"{d.name}_random_walk"]["value"] <= 1
+@run_daemon_entry_point("fake-triggered-sensor", config=__here__ / "triggered-sensor-config.toml")
+@run_daemon_entry_point("fake-continuous-hardware", config=__here__ / "continuous-hardware-config.toml")
+def test_simple_scan():
+    RE = RunEngine()
+    hardware = yaqc_bluesky.Device(39424)
+    sensor = yaqc_bluesky.Device(39425)
+    RE(scan([sensor], hardware, -10, 10, 15))
 
 
 if __name__ == "__main__":
-    test_describe_read()
-    test_read()
+    test_simple_scan()
