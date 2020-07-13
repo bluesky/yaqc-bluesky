@@ -10,7 +10,7 @@ class Sensor(Base):
         super().__init__(yaq_client, name=name)
         self._yaq_channel_names = self.yaq_client.get_channel_names()
         self._yaq_channel_units = self.yaq_client.get_channel_units()
-        self._yaq_channel_shapes = {k: tuple() for k in self._yaq_channel_names}  # upstream broken
+        self._yaq_channel_shapes = {k: None for k in self._yaq_channel_names}  # upstream broken
 
     def _describe(self, out):
         out = super()._describe(out)
