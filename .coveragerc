@@ -1,6 +1,6 @@
 [run]
 source =
-    yaqc-bluesky
+    yaqc_bluesky
 [report]
 omit =
     */python?.?/*
