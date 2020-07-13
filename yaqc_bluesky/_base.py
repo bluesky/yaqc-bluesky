@@ -38,7 +38,7 @@ class Base:
     def _field_metadata(self) -> OrderedDict:
         """Metadata to be shared by all fields for this daemon."""
         out = OrderedDict()
-        out["source"]  = f"yaq:{self.yaq_name}"
+        out["source"] = f"yaq:{self.yaq_name}"
         out["yaq_port"] = self.yaq_client._port
         out["yaq_host"] = self.yaq_client._host
         out["shape"] = tuple()  # should be None, but upstream bluesky is broken
