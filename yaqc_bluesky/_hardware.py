@@ -21,7 +21,7 @@ class Hardware(Base):
     @property
     def hints(self):
         out = super().hints
-        out["fields"].append("{self.name}_readback")
+        out["fields"].append(f"{self.name}_readback")
         return out
 
     def _read(self, out, ts) -> OrderedDict:

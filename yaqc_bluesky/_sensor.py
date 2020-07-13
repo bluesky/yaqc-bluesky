@@ -8,6 +8,7 @@ class Sensor(Base):
 
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
+        self.trigger()  # need to run once to get channel information
         self._yaq_channel_names = self.yaq_client.get_channel_names()
         self._yaq_channel_units = self.yaq_client.get_channel_units()
         self._yaq_channel_shapes = {k: tuple() for k in self._yaq_channel_names}  # upstream broken
