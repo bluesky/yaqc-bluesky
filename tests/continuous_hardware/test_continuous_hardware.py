@@ -45,8 +45,16 @@ def test_describe_read():
 
 
 @run_daemon_entry_point("fake-continuous-hardware", config=config)
+def test_hint_fields():
+    d = yaqc_bluesky.Device(39424)
+    fields = d.hints["fields"]
+    for field in fields:
+        assert field in d.describe().keys()
+        assert field in d.read().keys()
+
+
+@run_daemon_entry_point("fake-continuous-hardware", config=config)
 def test_scan():
-    # for now, basically a smoke test
     d = yaqc_bluesky.Device(39424)
     RE = RunEngine({})
     RE(scan([], d, -1, 0.33, 10))

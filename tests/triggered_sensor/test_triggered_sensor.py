@@ -42,6 +42,15 @@ def test_describe_read():
 
 
 @run_daemon_entry_point("fake-triggered-sensor", config=config)
+def test_hint_fields():
+    d = yaqc_bluesky.Device(39425)
+    fields = d.hints["fields"]
+    for field in fields:
+        assert field in d.describe().keys()
+        assert field in d.read().keys()
+
+
+@run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_read():
     d = yaqc_bluesky.Device(39425)
     d.trigger()
