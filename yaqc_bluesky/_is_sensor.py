@@ -1,10 +1,10 @@
 from collections import OrderedDict
 
-from ._base import Base
 from ._status import Status
+from ._base import Base
 
 
-class Sensor(Base):
+class IsSensor(Base):
 
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
