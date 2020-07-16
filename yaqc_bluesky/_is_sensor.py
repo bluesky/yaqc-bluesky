@@ -35,7 +35,3 @@ class IsSensor(Base):
         for name in self._yaq_channel_names:
             out[f"{self.name}_{name}"] = {"value": measured[name], "timestamp": ts}
         return out
-
-    def trigger(self) -> Status:
-        self.yaq_client.measure()
-        return self._wait_until_still()
