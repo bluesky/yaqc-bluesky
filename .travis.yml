@@ -25,10 +25,6 @@ jobs:
       name: "pytest-3.7"
       python: 3.7
     - stage: test
-      name: "flake8"
-      script:
-      - flake8
-    - stage: test
       name: "mypy"
       script:
       - mypy yaqc_bluesky
