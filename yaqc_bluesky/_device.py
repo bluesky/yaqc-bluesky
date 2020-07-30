@@ -3,18 +3,26 @@ __all__ = ["Device"]
 
 import yaqc
 
-from ._hardware import Hardware
-from ._sensor import Sensor
+from ._has_position import HasPosition
+from ._is_sensor import IsSensor
+from ._has_measure_trigger import HasMeasureTrigger
+
+
+traits = [("has-position", HasPosition),
+          ("is-sensor", IsSensor),
+          ("has-measure-trigger", HasMeasureTrigger),
+         ]
 
 
 def Device(port, *, host="127.0.0.1", name=None):
     c = yaqc.Client(port=port, host=host)
+    # collect classes
     clss = []
-    if "has-position" in c.traits:
-        clss.append(Hardware)
-        cls = type("YaqDevice", tuple(clss), {})
-        obj = cls(yaq_client=c, name=name)
-        obj.read()  # force initial reading to get things started
-    if "is-sensor" in c.traits:
-        obj = Sensor(yaq_client=c, name=name)
+    for trait, cls in traits:
+        if trait in c.traits:
+            clss.append(cls)
+    # make instance
+    cls = type("YaqDevice", tuple(clss), {})
+    obj = cls(yaq_client=c, name=name)
+    obj.read()  # force initial reading to get things started
     return obj
