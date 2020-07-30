@@ -1,8 +1,7 @@
 language: python
 python:
-  - "3.8"
+- '3.8'
 cache: false
-
 install:
   - pip install -U flit
   - pip install -U codecov
@@ -44,9 +43,12 @@ jobs:
       - mypy yaqc_bluesky
 
 deploy:
-  name: "pypi"
-  provider: pypi
-  username: "__token__"
-  password: NOTAPASSWORD
+  name: flit
+  provider: script
+  script: flit publish
   on:
     tags: true
+env:
+  global:
+  - secure: ncMKkeTN0sKtBtIGscMVxZbAZLeWV+IT21uHqxqgpmT8v/8cw2K2JpK+/DRSROqlh28onAwZD21Yhet3jljx5sDz8rOwhXib0JFiu01p6WAZKUJ3jEHdTMUcKGmHGWLZugznL1MbQQTX1x7MDHfV7MoPff8YTjj6jJMlWzkgxrEftz99P+ftCAt5cov4OU6wdoTLU+fshxcvv5FOMYwSNQizWcgKNF/QGSOnBLeMfdNn+1XgENfjaeHU9NaZVLoZqLT3b+bF8+W/tmvmOspFem2BhhFJ6uKsaY9IuavQP76xXlVOdMBT0zkAi/YZMTf0A8jFfKgB07Me4Ama+kpwqVy9TZuRmwQF65B4zNpjfy7fFvuvcwWquIIvGKShgTakwCpKQe6kcATZ87hCSoDGoKSQHu43FcfYesjGcXbcm6PKAdRKKch4rsm3CpxRoOK6JbNQt6rlHYCyS8g/ItKytGRjdfANUdwTjfVGoknaMQQILp3r05iDBy2aoOXMLDi4JQZJJKE36NXfI3iDc49tTvKHcmhytKcbfW1HJJzfgJlWdFSuHmtzkb+oHoBHLoZiQGRRO+UIIlLIrVHtX6JdPFVBcuLAcj0lEizadDHdgRbHzDiCYGxcMmpm82bv9oq6S+A/Rc9czfyKWPgjvemyUMLv9/74nzcuxnGHpDCxWwk=
+  - secure: Mc0/f7+e5ab43dDwBS7ICxqapg5wybo4odTLQt8eqc9kd+4rqqRzWGo7aFC46HtFlkbr9aeJakCV0GE8Jt5T8+kyPwgI3QeTlHg311fafgipw0C0+d8nig9R8nnbr1V0EJ4HwWJg1Vma0RKiehjm8Ulz0c5pu5cuM57+UFMxm1DgqKHMjWw4PUlD4mJ+U1zmLxQwzeEYYY9yAcXaljGQRFLxlzoBT9/O8Hyn8w0rfEqa9oiEXiytaw913XkClRhTp+W+zBXGCE3rNIYVx1NLufBPmTmyY4F3tciqRASHHZsIx7PFwKfSgtZJvHUxyB+ESiZzBzJX8OBJVZ3ooWNAQNwBrOTz+vKMLP/KVstXDPPqrKIjU9xyhqkVRi6uT1vftvPsOyS8C6rjApEy31fuEdBUDLYpGB2u1Z7y/GdoS3BRxHguRh2FrVUA/y0yZZV+QiOGc1SR3VhKZolji70lUQaiP/1KFBTIYOt67osUllycSb0pE2rrVBy59LS+MpqeX4wg94L0mwKJiU2RGlRK2sXrSzJHKUO/7o4StJ+wqzEZfDIamJk4idTXJASP91Sq62lq8KQrhw9MmCMZ8S6dH42nTanOTcn/iDaTial39YipWarff5gxHv375pLKs8w0jrAqci7IqQirnjS8RwNdgAS508dyQdgkaTsaeAIl0yU=
