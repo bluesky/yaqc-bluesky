@@ -2,9 +2,8 @@
 yaqc-bluesky
 ============
 
-.. image:: https://img.shields.io/travis/com/bluesky/ophyd-yaq   :alt: Travis (.com)
-        :target: https://travis-ci.com/bluesky/ophyd-yaq
-
+.. image:: https://img.shields.io/travis/com/bluesky/yaqc-bluesky   :alt: Travis (.com)
+        :target: https://travis-ci.com/bluesky/yaqc-bluesky
 
 .. image:: https://img.shields.io/pypi/v/yaqc-bluesky.svg
         :target: https://pypi.python.org/pypi/yaqc-bluesky
