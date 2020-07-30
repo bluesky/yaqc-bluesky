@@ -8,6 +8,7 @@ dist-name = "yaqc-bluesky"
 author = "Blaise Thompson"
 author-email = "blaise@untzag.com"
 home-page = "https://github.com/bluesky/yaqc-bluesky"
+description-file = "README.md"
 requires-python = ">3.7"
 description-file="README.md"
 requires = ["yaqc>=2020.7.3"]
