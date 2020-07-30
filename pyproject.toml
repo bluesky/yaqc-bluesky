@@ -1,0 +1,44 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "yaqc_bluesky"
+dist-name = "yaqc-bluesky"
+author = "Blaise Thompson"
+author-email = "blaise@untzag.com"
+home-page = "https://github.com/bluesky/yaqc-bluesky"
+requires-python = ">3.7"
+description-file="README.md"
+requires = ["yaqc>=2020.7.3"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Scientific/Engineering",
+]
+
+[tool.flit.metadata.requires-extra]
+dev = ["black", "pre-commit"]
+
+[tool.black]
+line-length = 99
+target-version = ['py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | build
+  | dist
+)/
+'''

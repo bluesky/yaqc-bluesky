@@ -1,8 +1,6 @@
-# flake8: noqa
+""" A bluesky interface to the yaq instrument control framework."""
+
 
 from ._device import *
 from ._exceptions import *
-from ._version import get_versions
-
-__version__ = get_versions()["version"]
-del get_versions
+from .__version__ import *
