@@ -1,6 +1,5 @@
 from collections import OrderedDict
 
-from ._status import Status
 from ._base import Base
 
 
