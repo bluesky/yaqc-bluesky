@@ -43,7 +43,6 @@ jobs:
       - mypy yaqc_bluesky
 
 deploy:
-  name: flit
   provider: script
   script: flit publish
   on:
