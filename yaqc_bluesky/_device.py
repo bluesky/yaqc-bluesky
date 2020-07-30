@@ -1,7 +1,7 @@
 __all__ = ["Device"]
 
 
-import yaqc
+import yaqc  # type: ignore
 
 from ._has_position import HasPosition
 from ._is_sensor import IsSensor

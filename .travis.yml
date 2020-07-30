@@ -28,6 +28,10 @@ jobs:
       name: "flake8"
       script:
       - flake8
+    - stage: test
+      name: "mypy"
+      script:
+      - mypy yaqc_bluesky
 
 deploy:
   name: "pypi"
