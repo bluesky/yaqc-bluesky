@@ -2,7 +2,7 @@
 yaqc-bluesky
 ============
 
-.. image:: https://img.shields.io/travis/com/bluesky/yaqc-bluesky   :alt: Travis (.com)
+.. image:: https://img.shields.io/travis/com/bluesky/yaqc-bluesky
         :target: https://travis-ci.com/bluesky/yaqc-bluesky
 
 .. image:: https://img.shields.io/pypi/v/yaqc-bluesky.svg
@@ -11,7 +11,7 @@ yaqc-bluesky
 .. image:: https://mybinder.org/badge.svg
 	:target: https://mybinder.org/v2/gh/bluesky/yaqc-bluesky/master?urlpath=lab
 
-An bluesky interface to the `yaq instrument control framework <https://yaq.fyi/>`_.
+A bluesky interface to the `yaq instrument control framework <https://yaq.fyi/>`_.
 
 To communicate with a yaq daemon, simply create a device::
 
