@@ -1,10 +1,9 @@
 from collections import OrderedDict
 
 from ._base import Base
-from ._status import Status
 
 
-class Sensor(Base):
+class IsSensor(Base):
 
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
@@ -35,7 +34,3 @@ class Sensor(Base):
         for name in self._yaq_channel_names:
             out[f"{self.name}_{name}"] = {"value": measured[name], "timestamp": ts}
         return out
-
-    def trigger(self) -> Status:
-        self.yaq_client.measure()
-        return self._wait_until_still()
