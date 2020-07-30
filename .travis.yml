@@ -30,6 +30,15 @@ jobs:
       name: "pytest-3.7"
       python: 3.7
     - stage: test
+      name: "pytest-bluesky-git"
+      script:
+      - cd ..
+      - git clone https://github.com/bluesky/bluesky.git
+      - cd bluesky
+      - pip install -U .
+      - cd ../yaqc-bluesky
+      - pytest
+    - stage: test
       name: "mypy"
       script:
       - mypy yaqc_bluesky
