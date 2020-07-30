@@ -4,6 +4,7 @@ python:
 cache: false
 
 install:
+  - pip install -U flit
   - pip install -U codecov
   - pip install -U coverage
   - pip install -U pytest
