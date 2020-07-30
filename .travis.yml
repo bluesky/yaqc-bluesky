@@ -4,9 +4,13 @@ python:
 cache: false
 
 install:
+  - pip install -U codecov
+  - pip install -U coverage
+  - pip install -U pytest
+  - pip install -U yaqd-fakes
+  - pip install -U bluesky
+  - pip install -U mypy
   - pip install -U .
-  - pip install -U -r requirements-dev.txt
-  - pip install yaqd-fakes
 
 jobs:
   include:
