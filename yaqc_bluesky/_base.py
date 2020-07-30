@@ -10,7 +10,6 @@ from ._status import Status
 
 
 class Base:
-
     def __init__(self, yaq_client, *, name=None):
         self.yaq_client = yaq_client
         self.yaq_traits = yaq_client.traits
@@ -24,11 +23,13 @@ class Base:
         self.stop = None
 
     def _describe(self, out):
-        out[f"{self.name}_busy"] = OrderedDict(self._field_metadata, **{"dtype": "boolean"})
+        out[f"{self.name}_busy"] = OrderedDict(
+            self._field_metadata, **{"dtype": "boolean"}
+        )
         return out
 
     def describe(self) -> OrderedDict:
-        out = OrderedDict()
+        out: OrderedDict = OrderedDict()
         out = self._describe(out)
         return out
 
@@ -38,7 +39,7 @@ class Base:
     @property
     def _field_metadata(self) -> OrderedDict:
         """Metadata to be shared by all fields for this daemon."""
-        out = OrderedDict()
+        out: OrderedDict = OrderedDict()
         out["source"] = f"yaq:{self.yaq_name}"
         out["yaq_port"] = self.yaq_client._port
         out["yaq_host"] = self.yaq_client._host
@@ -47,7 +48,7 @@ class Base:
 
     @property
     def hints(self) -> Dict:
-        out = {}
+        out: Dict = {}
         out["fields"] = []
         return out
 
@@ -57,7 +58,7 @@ class Base:
 
     def read(self) -> OrderedDict:
         with self._lock:
-            out = OrderedDict()
+            out: OrderedDict = OrderedDict()
             ts = time.time()
             out = self._read(out, ts)
         return out

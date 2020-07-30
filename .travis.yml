@@ -4,9 +4,13 @@ python:
 cache: false
 
 install:
+  - pip install -U codecov
+  - pip install -U coverage
+  - pip install -U pytest
+  - pip install -U yaqd-fakes
+  - pip install -U bluesky
+  - pip install -U mypy
   - pip install -U .
-  - pip install -U -r requirements-dev.txt
-  - pip install yaqd-fakes
 
 jobs:
   include:
@@ -25,9 +29,9 @@ jobs:
       name: "pytest-3.7"
       python: 3.7
     - stage: test
-      name: "flake8"
+      name: "mypy"
       script:
-      - flake8
+      - mypy yaqc_bluesky
 
 deploy:
   name: "pypi"

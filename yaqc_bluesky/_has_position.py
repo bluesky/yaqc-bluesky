@@ -4,7 +4,6 @@ from ._base import Base
 
 
 class HasPosition(Base):
-
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
         self.yaq_units = self.yaq_client.get_units()
@@ -26,8 +25,14 @@ class HasPosition(Base):
 
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
-        out[f"{self.name}_setpoint"] = {"value": self.yaq_client.get_destination(), "timestamp": ts}
-        out[f"{self.name}_readback"] = {"value": self.yaq_client.get_position(), "timestamp": ts}
+        out[f"{self.name}_setpoint"] = {
+            "value": self.yaq_client.get_destination(),
+            "timestamp": ts,
+        }
+        out[f"{self.name}_readback"] = {
+            "value": self.yaq_client.get_position(),
+            "timestamp": ts,
+        }
         return out
 
     def set(self, value):

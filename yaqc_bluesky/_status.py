@@ -1,3 +1,5 @@
+# mypy: ignore-errors
+
 __all__ = ["Status"]
 
 
@@ -95,8 +97,8 @@ class Status:
     to no effect because the callbacks have already been called and the
     program has moved on.
     """
-    def __init__(self, *, timeout=None, settle_time=0,
-                 done=None, success=None):
+
+    def __init__(self, *, timeout=None, settle_time=0, done=None, success=None):
         super().__init__()
         self._tname = None
         self._lock = threading.RLock()
@@ -120,18 +122,19 @@ class Status:
 
         # We cannot know that we are successful if we are not done.
         if success and not done:
-            raise ValueError(
-                "Cannot initialize with done=False but success=True.")
+            raise ValueError("Cannot initialize with done=False but success=True.")
         if done is not None or success is not None:
             warn(
                 "The 'done' and 'success' parameters will be removed in a "
                 "future release. Use the methods set_finished() or "
                 "set_exception(exc) to mark success or failure, respectively, "
                 "after the Status has been instantiated.",
-                DeprecationWarning)
+                DeprecationWarning,
+            )
 
         self._callback_thread = threading.Thread(
-            target=self._run_callbacks, daemon=True, name=self._tname)
+            target=self._run_callbacks, daemon=True, name=self._tname
+        )
         self._callback_thread.start()
 
         if done:
@@ -142,7 +145,8 @@ class Status:
                     f"The status {self!r} has failed. To obtain more specific, "
                     "helpful errors in the future, update the Device to use "
                     "set_exception(...) instead of setting success=False "
-                    "at __init__ time.")
+                    "at __init__ time."
+                )
                 self.set_exception(exc)
 
     @property
@@ -210,7 +214,8 @@ class Status:
                 # the lock.
                 if self._exception is None:
                     exc = StatusTimeoutError(
-                        f"Status {self!r} failed to complete in specified timeout.")
+                        f"Status {self!r} failed to complete in specified timeout."
+                    )
                     self._exception = exc
         # Mark this as "settled".
         try:
@@ -218,8 +223,7 @@ class Status:
         except Exception:
             # No alternative but to log this. We can't supersede set_exception,
             # and we have to continue and run the callbacks.
-            self.log.exception(
-                "%r encountered error during _settled()", self)
+            self.log.exception("%r encountered error during _settled()", self)
         # Now we know whether or not we have succeed or failed, either by
         # timeout above or by set_exception(exc), so we can set the Event that
         # will mark this Status as done.
@@ -230,7 +234,8 @@ class Status:
                 self._handle_failure()
             except Exception:
                 self.log.exception(
-                    "%r encountered an error during _handle_failure()", self)
+                    "%r encountered an error during _handle_failure()", self
+                )
         # The callbacks have access to self, from which they can distinguish
         # success or failure.
         for cb in self._callbacks:
@@ -239,7 +244,10 @@ class Status:
             except Exception:
                 self.log.exception(
                     "An error was raised on a background thread while "
-                    "running the callback %r(%r).", cb, self)
+                    "running the callback %r(%r).",
+                    cb,
+                    self,
+                )
         self._callbacks.clear()
 
     def set_exception(self, exc):
@@ -253,8 +261,11 @@ class Status:
         """
         # Since we rely on this being raise-able later, check proactively to
         # avoid potentially very confusing failures.
-        if not (isinstance(exc, Exception)
-                or isinstance(exc, type) and issubclass(exc, Exception)):
+        if not (
+            isinstance(exc, Exception)
+            or isinstance(exc, type)
+            and issubclass(exc, Exception)
+        ):
             # Note that Python allows `raise Exception` or raise Exception()`
             # so we allow a class or an instance here too.
             raise ValueError(f"Expected an Exception, got {exc!r}")
@@ -263,18 +274,23 @@ class Status:
         # would probably never come up except due to some rare user error, but
         # if it did it could be very confusing indeed!
         for exc_class in (StatusTimeoutError, WaitTimeoutError):
-            if (isinstance(exc, exc_class)
-                    or isinstance(exc, type) and issubclass(exc, exc_class)):
+            if (
+                isinstance(exc, exc_class)
+                or isinstance(exc, type)
+                and issubclass(exc, exc_class)
+            ):
                 raise ValueError(
                     f"{exc_class} has special significance and cannot be set "
                     "as the exception. Use a plain TimeoutError or some other "
-                    "subclass thereof.")
+                    "subclass thereof."
+                )
 
         with self._externally_initiated_completion_lock:
             if self._externally_initiated_completion:
                 raise InvalidState(
                     "Either set_finished() or set_exception() has "
-                    f"already been called on {self!r}")
+                    f"already been called on {self!r}"
+                )
             self._externally_initiated_completion = True
             if isinstance(self._exception, StatusTimeoutError):
                 # We have already timed out.
@@ -292,7 +308,8 @@ class Status:
             if self._externally_initiated_completion:
                 raise InvalidState(
                     "Either set_finished() or set_exception() has "
-                    f"already been called on {self!r}")
+                    f"already been called on {self!r}"
+                )
             self._externally_initiated_completion = True
         # Note that in either case, the callbacks themselves are run from the
         # same thread. This just sets an Event, either from this thread (the
@@ -326,7 +343,8 @@ class Status:
             exc = UnknownStatusFailure(
                 f"The status {self!r} has failed. To obtain more specific, "
                 "helpful errors in the future, update the Device to use "
-                "set_exception(...) instead of _finished(success=False).")
+                "set_exception(...) instead of _finished(success=False)."
+            )
             self.set_exception(exc)
 
     def exception(self, timeout=None):
@@ -387,17 +405,22 @@ class Status:
     def finished_cb(self):
         with self._lock:
             if len(self.callbacks) == 1:
-                warn("The property `finished_cb` is deprecated, and must raise "
-                     "an error if a status object has multiple callbacks. Use "
-                     "the `callbacks` property instead.", stacklevel=2)
-                cb, = self.callbacks
+                warn(
+                    "The property `finished_cb` is deprecated, and must raise "
+                    "an error if a status object has multiple callbacks. Use "
+                    "the `callbacks` property instead.",
+                    stacklevel=2,
+                )
+                (cb,) = self.callbacks
                 assert cb is not None
                 return cb
             else:
-                raise UseNewProperty("The deprecated `finished_cb` property "
-                                     "cannot be used for status objects that have "
-                                     "multiple callbacks. Use the `callbacks` "
-                                     "property instead.")
+                raise UseNewProperty(
+                    "The deprecated `finished_cb` property "
+                    "cannot be used for status objects that have "
+                    "multiple callbacks. Use the `callbacks` "
+                    "property instead."
+                )
 
     def add_callback(self, callback):
         """
@@ -428,12 +451,17 @@ class Status:
     def finished_cb(self, cb):
         with self._lock:
             if not self.callbacks:
-                warn("The setter `finished_cb` is deprecated, and must raise "
-                     "an error if a status object already has one callback. Use "
-                     "the `add_callback` method instead.", stacklevel=2)
+                warn(
+                    "The setter `finished_cb` is deprecated, and must raise "
+                    "an error if a status object already has one callback. Use "
+                    "the `add_callback` method instead.",
+                    stacklevel=2,
+                )
                 self.add_callback(cb)
             else:
-                raise UseNewProperty("The deprecated `finished_cb` setter cannot "
-                                     "be used for status objects that already "
-                                     "have one callback. Use the `add_callbacks` "
-                                     "method instead.")
+                raise UseNewProperty(
+                    "The deprecated `finished_cb` setter cannot "
+                    "be used for status objects that already "
+                    "have one callback. Use the `add_callbacks` "
+                    "method instead."
+                )
