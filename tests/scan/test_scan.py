@@ -34,8 +34,12 @@ def run_daemon_entry_point(kind, config):
     return decorator
 
 
-@run_daemon_entry_point("fake-triggered-sensor", config=__here__ / "triggered-sensor-config.toml")
-@run_daemon_entry_point("fake-continuous-hardware", config=__here__ / "continuous-hardware-config.toml")
+@run_daemon_entry_point(
+    "fake-triggered-sensor", config=__here__ / "triggered-sensor-config.toml"
+)
+@run_daemon_entry_point(
+    "fake-continuous-hardware", config=__here__ / "continuous-hardware-config.toml"
+)
 def test_simple_scan():
     RE = RunEngine()
     hardware = yaqc_bluesky.Device(39424)

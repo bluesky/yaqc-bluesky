@@ -8,10 +8,11 @@ from ._is_sensor import IsSensor
 from ._has_measure_trigger import HasMeasureTrigger
 
 
-traits = [("has-position", HasPosition),
-          ("is-sensor", IsSensor),
-          ("has-measure-trigger", HasMeasureTrigger),
-          ]
+traits = [
+    ("has-position", HasPosition),
+    ("is-sensor", IsSensor),
+    ("has-measure-trigger", HasMeasureTrigger),
+]
 
 
 def Device(port, *, host="127.0.0.1", name=None):
