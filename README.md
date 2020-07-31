@@ -7,7 +7,6 @@
 [![black](https://img.shields.io/badge/code--style-black-black)](https://black.readthedocs.io/)
 [![ver](https://img.shields.io/badge/calver-YYYY.0M.MICRO-blue)](https://calver.org/)
 [![log](https://img.shields.io/badge/change-log-informational)](https://gitlab.com/yaq/yaqc-bluesky/-/blob/master/CHANGELOG.md)
-[![binder]( https://mybinder.org/badge.svg)]( https://mybinder.org/v2/gh/bluesky/yaqc-bluesky/master?urlpath=lab)
 
 A bluesky interface to the [yaq instrument control framework](https://yaq.fyi/).
 
@@ -24,3 +23,7 @@ You may also optionally provide `name`, if you wish the bluesky device to have a
 
 `yaqc_bluesky` only exposes a subset of the functionality of yaq daemons.
 Python users wishing to communicate with yaq may also be interested in [yaqc](https://python.yaq.fyi/yaqc/).
+
+You can play with yaq on bluesky using our binder:
+
+[![binder]( https://mybinder.org/badge.svg)]( https://mybinder.org/v2/gh/bluesky/yaqc-bluesky/master?urlpath=lab)
