@@ -3,45 +3,44 @@ python:
 - '3.8'
 cache: false
 install:
-  - pip install -U flit
-  - pip install -U codecov
-  - pip install -U coverage
-  - pip install -U pytest
-  - pip install -U yaqd-fakes
-  - pip install -U bluesky
-  - pip install -U mypy
-  - pip install -U .
-
+- pip install -U flit
+- pip install -U codecov
+- pip install -U coverage
+- pip install -U pytest
+- pip install -U yaqd-fakes
+- pip install -U bluesky
+- pip install -U mypy
+- pip install -U .
 jobs:
   include:
-    - &pytest
-      stage: test
-      name: "pytest-nightly"
-      python: nightly
-      script:
-      - coverage run -m pytest  # Run the tests and check for test coverage.
-      - coverage report -m  # Generate test coverage report.
-      - codecov  # Upload the report to codecov.
-    - <<: *pytest
-      name: "pytest-3.8"
-      python: 3.8
-    - <<: *pytest
-      name: "pytest-3.7"
-      python: 3.7
-    - stage: test
-      name: "pytest-bluesky-git"
-      script:
-      - cd ..
-      - git clone https://github.com/bluesky/bluesky.git
-      - cd bluesky
-      - pip install -U .
-      - cd ../yaqc-bluesky
-      - pytest
-    - stage: test
-      name: "mypy"
-      script:
-      - mypy yaqc_bluesky
-
+  - stage: test
+    name: pytest-nightly
+    python: nightly
+    script: &1
+    - coverage run -m pytest
+    - coverage report -m
+    - codecov
+  - stage: test
+    name: pytest-3.8
+    python: 3.8
+    script: *1
+  - stage: test
+    name: pytest-3.7
+    python: 3.7
+    script: *1
+  - stage: test
+    name: pytest-bluesky-git
+    script:
+    - cd ..
+    - git clone https://github.com/bluesky/bluesky.git
+    - cd bluesky
+    - pip install -U .
+    - cd ../yaqc-bluesky
+    - pytest
+  - stage: test
+    name: mypy
+    script:
+    - mypy yaqc_bluesky
 deploy:
   provider: script
   script: flit publish
@@ -49,5 +48,5 @@ deploy:
     tags: true
 env:
   global:
-  - secure: ncMKkeTN0sKtBtIGscMVxZbAZLeWV+IT21uHqxqgpmT8v/8cw2K2JpK+/DRSROqlh28onAwZD21Yhet3jljx5sDz8rOwhXib0JFiu01p6WAZKUJ3jEHdTMUcKGmHGWLZugznL1MbQQTX1x7MDHfV7MoPff8YTjj6jJMlWzkgxrEftz99P+ftCAt5cov4OU6wdoTLU+fshxcvv5FOMYwSNQizWcgKNF/QGSOnBLeMfdNn+1XgENfjaeHU9NaZVLoZqLT3b+bF8+W/tmvmOspFem2BhhFJ6uKsaY9IuavQP76xXlVOdMBT0zkAi/YZMTf0A8jFfKgB07Me4Ama+kpwqVy9TZuRmwQF65B4zNpjfy7fFvuvcwWquIIvGKShgTakwCpKQe6kcATZ87hCSoDGoKSQHu43FcfYesjGcXbcm6PKAdRKKch4rsm3CpxRoOK6JbNQt6rlHYCyS8g/ItKytGRjdfANUdwTjfVGoknaMQQILp3r05iDBy2aoOXMLDi4JQZJJKE36NXfI3iDc49tTvKHcmhytKcbfW1HJJzfgJlWdFSuHmtzkb+oHoBHLoZiQGRRO+UIIlLIrVHtX6JdPFVBcuLAcj0lEizadDHdgRbHzDiCYGxcMmpm82bv9oq6S+A/Rc9czfyKWPgjvemyUMLv9/74nzcuxnGHpDCxWwk=
-  - secure: Mc0/f7+e5ab43dDwBS7ICxqapg5wybo4odTLQt8eqc9kd+4rqqRzWGo7aFC46HtFlkbr9aeJakCV0GE8Jt5T8+kyPwgI3QeTlHg311fafgipw0C0+d8nig9R8nnbr1V0EJ4HwWJg1Vma0RKiehjm8Ulz0c5pu5cuM57+UFMxm1DgqKHMjWw4PUlD4mJ+U1zmLxQwzeEYYY9yAcXaljGQRFLxlzoBT9/O8Hyn8w0rfEqa9oiEXiytaw913XkClRhTp+W+zBXGCE3rNIYVx1NLufBPmTmyY4F3tciqRASHHZsIx7PFwKfSgtZJvHUxyB+ESiZzBzJX8OBJVZ3ooWNAQNwBrOTz+vKMLP/KVstXDPPqrKIjU9xyhqkVRi6uT1vftvPsOyS8C6rjApEy31fuEdBUDLYpGB2u1Z7y/GdoS3BRxHguRh2FrVUA/y0yZZV+QiOGc1SR3VhKZolji70lUQaiP/1KFBTIYOt67osUllycSb0pE2rrVBy59LS+MpqeX4wg94L0mwKJiU2RGlRK2sXrSzJHKUO/7o4StJ+wqzEZfDIamJk4idTXJASP91Sq62lq8KQrhw9MmCMZ8S6dH42nTanOTcn/iDaTial39YipWarff5gxHv375pLKs8w0jrAqci7IqQirnjS8RwNdgAS508dyQdgkaTsaeAIl0yU=
+  - secure: FFUGt2+ibOlA7BGF2f7PczB5VdWEpDSasAaZFS8xuwxoqe3uRAr1P/14acVDPm7efFgYvvtuLnj6CZYmCGg0SWDQPhiMJ6fMB7NKBNeVXANB6hmO7p/DdpM+Fm/yCoBNQR0tsrkVvlmNAAG7qtlAzkKfu9ulc9cWZVO8hTVnMqopY52LBRiZQV3k3cHRluKWHpMqjDLcvHnduL1+nD0cXTFhYyMhQCpqXOXjc/0wGCuK2cKYfXN3LN2Wkhc+TnKNhaqvD3PScoUPGDk/6myXKcd9advLLDXsxE0wF15O8CwPA11vnW6o1x3D9JKeiHE4y/s6JjCLH9GKfkULA89weYF8Xsw7vBnxThpJWp6M5dcvU3mJd4wNxr4SOnt8+Vn+k5boQvMgMNSV4YZDg7AEIxVZ2zwVliVEsvUHKSnDSEvQyBgQjJLKUJiMdljXtxs1BNtHNeZD3XMYK/BetPAc2xn/Riw/+bPGazM9Bj4erub5dHIMQKFrZu1bX+2gqMvc98VDf+3j40ir0v7AoocSopmv7DtaWmiKxP9jYhC5qXRQ9B0qe3SVLT/C8/qTYyMtDRUamRecJwVn6IjTwAwXcKqjTi3TOhutTNLFl0H6JlwR4y1auCwtIf+fjLV9UCyoOUWC9VmVX0deV6yUDdcIJZzbqLhS6LMk+LYF87f4wI4=
+  - secure: jCXEGX4kQCdfH/W6Y9ftDl9I/tvlY617Xf0JDtwxBfFpL8+GbxNDl1jG+rWYNZ4HX4jdqbkiMUOYktW+Vka61VjUfhPTh7l8E+iWolYzfj37CKVUrVspJmsunUlxfUleihtU2+PxSbLiYG0W94krrFnf22LK3a+NffbzemK3/Pqc3gEMtYpOFAPUK6mX8AbkvjeG+R74QOQadT6p66a2CvPiq/xn9vf3qd+Cwg7OKm4zS/BIImAekxgzBDOWi2LDE0MYWGfSROUX4h3DLhHF05SM+bosAWpT+5hfWiO4a+X8w+QlpfW4KZ+y+JhnBNp/VQbrAMC8TtubGJijsJoNuYN5mIBkUmlyeMcv5CPeZ4sGSjkPOEQNf2AA+pUEj2YFtHL7KK9pCMLgEbRhh31xmEDfXC5qhhIiKA3YCoYPpXmDlgAt3lTHSqjVHdncQ+VKcAwdr8mys1/rC6dArHb+YnLOJFKogJ5+kZeTvLzOpWokMxf+S0d+UNjmc+kTTw2/AHUC0uavcTp1BXd4D8MUM6oZAO4v8kO+kLImFa6/o2j7fRRIRkEOGb6gsQ2NF0iEosRK8lAp0U0c2ZdcBAfl4Zs3yr7YMUqA13U/axfD37zP63HxA+y7SGH1PubJlrJnWCGS3ykPRyhVu3qjC5ZhuOHJ2qJpj7qRCchBHDRY1TA=
