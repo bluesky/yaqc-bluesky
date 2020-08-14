@@ -41,6 +41,8 @@ jobs:
     name: mypy
     script:
     - mypy yaqc_bluesky
+  allow_failures:
+    - python: nightly
 deploy:
   provider: script
   script: flit publish
