@@ -1,38 +1,14 @@
 import pathlib
 import time
 import subprocess
+from yaqd_core import testing
 import yaqc_bluesky
 
 
 config = pathlib.Path(__file__).parent / "config.toml"
 
 
-def run_daemon_entry_point(kind, config):
-    def decorator(function):
-        def wrapper():
-            with subprocess.Popen([f"yaqd-{kind}", "--config", config]) as proc:
-                tries = 100
-                while True:
-                    if tries <= 0:
-                        break
-                    try:
-                        function()
-                    except ConnectionError:
-                        time.sleep(0.1)
-                    except Exception:
-                        proc.terminate()
-                        raise
-                    else:
-                        break
-                    tries -= 1
-                proc.terminate()
-
-        return wrapper
-
-    return decorator
-
-
-@run_daemon_entry_point("fake-triggered-sensor", config=config)
+@testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_describe_read():
     d = yaqc_bluesky.Device(39425)
     d.trigger()
@@ -41,7 +17,7 @@ def test_describe_read():
     assert describe_keys == read_keys
 
 
-@run_daemon_entry_point("fake-triggered-sensor", config=config)
+@testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_hint_fields():
     d = yaqc_bluesky.Device(39425)
     fields = d.hints["fields"]
@@ -50,7 +26,7 @@ def test_hint_fields():
         assert field in d.read().keys()
 
 
-@run_daemon_entry_point("fake-triggered-sensor", config=config)
+@testing.run_daemon_entry_point("fake-triggered-sensor", config=config)
 def test_read():
     d = yaqc_bluesky.Device(39425)
     d.trigger()
