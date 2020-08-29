@@ -22,7 +22,17 @@ def test_simple_rel_spiral_fermat():
     hardware_x = yaqc_bluesky.Device(39423)
     hardware_y = yaqc_bluesky.Device(39424)
     sensor = yaqc_bluesky.Device(39425)
-    RE(rel_spiral_fermat([sensor], x_motor=hardware_x, y_motor=hardware_y, x_range=1, y_range=1, dr=0.5, factor=1))
+    RE(
+        rel_spiral_fermat(
+            [sensor],
+            x_motor=hardware_x,
+            y_motor=hardware_y,
+            x_range=1,
+            y_range=1,
+            dr=0.5,
+            factor=1,
+        )
+    )
 
 
 if __name__ == "__main__":
