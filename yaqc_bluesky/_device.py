@@ -10,8 +10,8 @@ from ._has_measure_trigger import HasMeasureTrigger
 
 traits = [
     ("has-position", HasPosition),
-    ("is-sensor", IsSensor),
     ("has-measure-trigger", HasMeasureTrigger),
+    ("is-sensor", IsSensor),
 ]
 
 
