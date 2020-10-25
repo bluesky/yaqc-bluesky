@@ -4,8 +4,6 @@ python:
 cache: false
 install:
 - pip install -U flit
-- pip install -U codecov
-- pip install -U coverage
 - pip install -U pytest
 - pip install -U yaqd-fakes
 - pip install -U bluesky
@@ -17,9 +15,7 @@ jobs:
     name: pytest-nightly
     python: nightly
     script: &1
-    - coverage run -m pytest
-    - coverage report -m
-    - codecov
+    - pytest 
   - stage: test
     name: pytest-3.8
     python: 3.8
