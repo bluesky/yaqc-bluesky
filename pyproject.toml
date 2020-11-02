@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [tool.flit.metadata.requires-extra]
-dev = ["black", "pre-commit", "pytest"]
+dev = ["black", "pre-commit", "pytest", "bluesky"]
 
 [tool.black]
 line-length = 99
