@@ -1,6 +1,6 @@
 # yaqc-bluesky
 
-[![CI](https://img.shields.io/github/workflow/status/bluesky/yaqc-bluesky/python-test/master)](https://github.com/bluesky/yaqc-bluesky/actions?query=workflow%3Apython-test)
+[![CI](https://img.shields.io/github/workflow/status/bluesky/yaqc-bluesky/python-test)](https://github.com/bluesky/yaqc-bluesky/actions?query=workflow%3Apython-test)
 [![PyPI](https://img.shields.io/pypi/v/yaqc-bluesky)](https://pypi.org/project/yaqc-bluesky)
 [![Conda](https://img.shields.io/conda/vn/conda-forge/yaqc-bluesky)](https://anaconda.org/conda-forge/yaqc-bluesky)
 [![yaq](https://img.shields.io/badge/framework-yaq-orange)](https://yaq.fyi/)
