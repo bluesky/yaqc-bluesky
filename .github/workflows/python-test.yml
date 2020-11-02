@@ -1,6 +1,9 @@
-name: test python
+name: pytest
 
-on: [push]
+on:
+  build:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   build:
