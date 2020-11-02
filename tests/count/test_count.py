@@ -15,7 +15,6 @@ __here__ = pathlib.Path(__file__).parent
 )
 def test_simple_count():
     RE = RunEngine()
-    hardware = yaqc_bluesky.Device(39424)
     sensor = yaqc_bluesky.Device(39425)
     RE(count([sensor], 41))
 
