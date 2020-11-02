@@ -1,4 +1,4 @@
-name: python-test
+name: bluesky-git 
 
 on:
   push:
@@ -19,9 +19,15 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+    - name: Install bluesky git
       run: |
+        cd ..
+        git clone https://github.com/bluesky/bluesky.git
+        cd bluesky
         python -m pip install --upgrade pip
+        python -m pip install .
+    - name: Install yaqc-bluesky
+      run: |
         python -m pip install --upgrade flit
         flit install 
     - name: Test with pytest
