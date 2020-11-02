@@ -1,7 +1,7 @@
-name: pytest
+name: python-test
 
 on:
-  build:
+  push:
   schedule:
     - cron: '0 0 * * *'
 
