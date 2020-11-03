@@ -32,5 +32,5 @@ jobs:
         flit install 
     - name: Test with pytest
       run: |
-        pytest
+        pytest --color=yes
 
