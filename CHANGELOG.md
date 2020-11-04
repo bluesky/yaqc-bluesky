@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- removed base attribute stop (None) that only existed to pass bluesky ducktype checks
+- added bluesky as explicit dependency, pinned to newer than 1.6.6
+
 ## [2020.07.1]
 
 ### Fixed

@@ -19,7 +19,6 @@ __here__ = pathlib.Path(__file__).parent
 def test_simple_rel_scan():
     RE = RunEngine()
     hardware = yaqc_bluesky.Device(39424)
-    print(hardware.stop)
     sensor = yaqc_bluesky.Device(39425)
     RE(rel_scan([sensor], hardware, -1, 1, 15))
 
