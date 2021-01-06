@@ -31,7 +31,7 @@ dev = ["black",
        "mypy"]
 
 [tool.flit.entrypoints."happi.containers"]
-yaq = "yaqc_bluesky.happi"
+yaq = "yaqc_bluesky._happi"
 
 [tool.black]
 line-length = 99

@@ -4,4 +4,4 @@
 from ._device import *
 from ._exceptions import *
 from .__version__ import *
-from . import happi
+from . import _happi as happi_containers
