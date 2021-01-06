@@ -5,7 +5,7 @@ pcdshub.github.io/happi
 
 import copy
 
-from happi.item import HappiItem, EntryInfo
+from happi.item import HappiItem, EntryInfo  # type: ignore
 
 
 class YAQItem(HappiItem):
