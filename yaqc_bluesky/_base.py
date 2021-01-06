@@ -20,12 +20,9 @@ class Base:
             self.name = name
         self.parent = None
         self._lock = threading.Lock()
-        self.stop = None
 
     def _describe(self, out):
-        out[f"{self.name}_busy"] = OrderedDict(
-            self._field_metadata, **{"dtype": "boolean"}
-        )
+        out[f"{self.name}_busy"] = OrderedDict(self._field_metadata, **{"dtype": "boolean"})
         return out
 
     def describe(self) -> OrderedDict:
