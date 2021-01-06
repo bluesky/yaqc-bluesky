@@ -30,6 +30,9 @@ dev = ["black",
        "yaqd_fakes",
        "mypy"]
 
+[tool.flit.entrypoints."happi.containers"]
+yaq = "yaqc_bluesky.happi"
+
 [tool.black]
 line-length = 99
 target-version = ['py37', 'py38']

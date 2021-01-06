@@ -23,7 +23,7 @@ def Device(port, *, host="127.0.0.1", name=None):
         if trait in c.traits:
             clss.append(cls)
     # make instance
-    cls = type("YaqDevice", tuple(clss), {})
+    cls = type("YAQDevice", tuple(clss), {})
     obj = cls(yaq_client=c, name=name)
     obj.read()  # force initial reading to get things started
     return obj
