@@ -27,3 +27,9 @@ Python users wishing to communicate with yaq may also be interested in [yaqc](ht
 You can play with yaq on bluesky using our binder:
 
 [![binder]( https://mybinder.org/badge.svg)]( https://mybinder.org/v2/gh/bluesky/yaqc-bluesky/master?urlpath=lab)
+
+## happi support
+
+`yaqc_bluesky` provides support for [Happi](https://github.com/pcdshub/happi).
+Read more about yaq and Happi at [python.yaq.fyi/happi](https://python.yaq.fyi/happi).
+
