@@ -10,9 +10,11 @@ author-email = "blaise@untzag.com"
 home-page = "https://github.com/bluesky/yaqc-bluesky"
 description-file = "README.md"
 requires-python = ">3.7"
-requires = ["yaqc>=2020.7.3", "bluesky>=1.6.6"]
+requires = ["yaqc>=2020.7.3", 
+            "bluesky>=1.6.6", 
+            "happi>=1.8.4"]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: BSD License",
     "Natural Language :: English",
@@ -30,6 +32,9 @@ dev = ["black",
        "yaqd_core",
        "yaqd_fakes",
        "mypy"]
+
+[tool.flit.entrypoints."happi.containers"]
+yaq = "yaqc_bluesky._happi"
 
 [tool.black]
 line-length = 99

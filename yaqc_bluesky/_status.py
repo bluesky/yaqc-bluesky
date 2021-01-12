@@ -233,9 +233,7 @@ class Status:
             try:
                 self._handle_failure()
             except Exception:
-                self.log.exception(
-                    "%r encountered an error during _handle_failure()", self
-                )
+                self.log.exception("%r encountered an error during _handle_failure()", self)
         # The callbacks have access to self, from which they can distinguish
         # success or failure.
         for cb in self._callbacks:
@@ -262,9 +260,7 @@ class Status:
         # Since we rely on this being raise-able later, check proactively to
         # avoid potentially very confusing failures.
         if not (
-            isinstance(exc, Exception)
-            or isinstance(exc, type)
-            and issubclass(exc, Exception)
+            isinstance(exc, Exception) or isinstance(exc, type) and issubclass(exc, Exception)
         ):
             # Note that Python allows `raise Exception` or raise Exception()`
             # so we allow a class or an instance here too.
@@ -274,11 +270,7 @@ class Status:
         # would probably never come up except due to some rare user error, but
         # if it did it could be very confusing indeed!
         for exc_class in (StatusTimeoutError, WaitTimeoutError):
-            if (
-                isinstance(exc, exc_class)
-                or isinstance(exc, type)
-                and issubclass(exc, exc_class)
-            ):
+            if isinstance(exc, exc_class) or isinstance(exc, type) and issubclass(exc, exc_class):
                 raise ValueError(
                     f"{exc_class} has special significance and cannot be set "
                     "as the exception. Use a plain TimeoutError or some other "
