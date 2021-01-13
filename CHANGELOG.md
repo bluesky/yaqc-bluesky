@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2021.1.0]
+
 ### Added
 - happi support
 - happi is now a dependency
@@ -23,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.07.1...HEAD
+[Unreleased]: https://github.com/bluesky/yaqc-bluesky/compare/v2021.1.0...HEAD
+[2021.1.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.07.1...v2021.1.0
 [2020.07.1]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.07.0...v2020.07.1
 [2020.07.0]: https://github.com/bluesky/yaqc-bluesky/releases/tag/v2020.07.0
