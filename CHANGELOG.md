@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- overloaded happi default for item name requirements: now any valid python identifier works
+
 ## [2021.1.0]
 
 ### Added
