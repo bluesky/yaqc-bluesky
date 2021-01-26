@@ -23,7 +23,7 @@ jobs:
         cd ..
         git clone https://github.com/bluesky/bluesky.git
         cd bluesky
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip!=20.3.4,!=21.0
         python -m pip install .
     - name: Install yaqc-bluesky
       run: |
