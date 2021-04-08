@@ -50,7 +50,7 @@ class Base:
         return out
 
     def _read(self, out, ts) -> OrderedDict:
-        out[f"{self.name}_busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
+        out = OrderedDict()
         return out
 
     def read(self) -> OrderedDict:
