@@ -23,6 +23,10 @@ class HasPosition(Base):
         out["fields"].append(f"{self.name}_readback")
         return out
 
+    @property
+    def position(self) -> float:
+        return self.yaq_client.get_position()
+
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
         out[f"{self.name}_setpoint"] = {

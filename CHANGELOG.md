@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- clients to has-position daemons now implement @property position, a common convention in bluesky
+
 ## [2021.1.1]
 
 ### Changed
