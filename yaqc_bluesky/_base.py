@@ -50,7 +50,6 @@ class Base:
         return out
 
     def _read(self, out, ts) -> OrderedDict:
-        out = OrderedDict()
         return out
 
     def read(self) -> OrderedDict:
