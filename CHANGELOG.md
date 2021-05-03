@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 - state of busy no longer returned when devices are read
 
+### Added
+- clients to has-position daemons now implement @property position, a common convention in bluesky
+
+### Removed
+- no longer implement "set" for hardware without position (had raised NotImplementedError)
+
 ## [2021.1.1]
 
 ### Changed

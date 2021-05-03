@@ -61,9 +61,6 @@ class Base:
     def read_configuration(self) -> OrderedDict:
         return OrderedDict()
 
-    def set(self, position) -> Status:
-        raise NotImplementedError
-
     def trigger(self) -> Status:
         # should be overloaded for those devices that need a trigger
         st = Status()
