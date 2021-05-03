@@ -22,7 +22,6 @@ class Base:
         self._lock = threading.Lock()
 
     def _describe(self, out):
-        out[f"{self.name}_busy"] = OrderedDict(self._field_metadata, **{"dtype": "boolean"})
         return out
 
     def describe(self) -> OrderedDict:
@@ -50,7 +49,6 @@ class Base:
         return out
 
     def _read(self, out, ts) -> OrderedDict:
-        out[f"{self.name}_busy"] = {"value": self.yaq_client.busy(), "timestamp": ts}
         return out
 
     def read(self) -> OrderedDict:
@@ -74,8 +72,7 @@ class Base:
 
         def poll():
             while True:
-                r = self.read()
-                if r[f"{self.name}_busy"]["value"]:
+                if self.yaq_client.busy():
                     time.sleep(0.1)
                 else:
                     break
