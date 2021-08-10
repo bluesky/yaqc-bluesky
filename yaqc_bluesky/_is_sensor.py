@@ -16,8 +16,8 @@ class IsSensor(Base):
         for name in self._yaq_channel_names:
             meta = OrderedDict()
             meta["dtype"] = "number"
-            meta["units"] = self._yaq_channel_units[name]
-            meta["shape"] = self._yaq_channel_shapes[name]
+            meta["units"] = self._yaq_channel_units.get(name)
+            meta["shape"] = self._yaq_channel_shapes.get(name, ())
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
         return out
 
