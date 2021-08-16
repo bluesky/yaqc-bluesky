@@ -18,4 +18,5 @@ jobs:
     - name: Run mypy
       run: |
         mypy yaqc_bluesky
+        mypy bluesky_protocols.py
 
