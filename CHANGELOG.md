@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - happi name field no longer overloaded, upstream now allows short names
 - happi now pinned to >= 1.9.0
 - bluesky now pinned to >= 1.7.0 (to take advantage of new protocols)
+- Default for units and shape if not provided for the daemon
 
 ### Added
 - clients to has-position daemons now implement @property position, a common convention in bluesky
