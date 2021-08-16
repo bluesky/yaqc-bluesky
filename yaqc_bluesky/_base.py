@@ -20,7 +20,6 @@ class Base(bluesky_protocols.Readable):
             self.name = self.yaq_name
         else:
             self.name = name
-        self.parent = None
         self._lock = threading.Lock()
 
     def _describe(self, out):
