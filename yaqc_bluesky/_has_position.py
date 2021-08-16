@@ -1,9 +1,11 @@
 from collections import OrderedDict
 
+from bluesky import protocols as bluesky_protocols
+
 from ._base import Base
 
 
-class HasPosition(Base):
+class HasPosition(Base, bluesky_protocols.Movable):
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
         self.yaq_units = self.yaq_client.get_units()

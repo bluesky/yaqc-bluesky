@@ -6,10 +6,12 @@ import threading
 import time
 from typing import Dict
 
+from bluesky import protocols as bluesky_protocols
+
 from ._status import Status
 
 
-class Base:
+class Base(bluesky_protocols.Readable):
     def __init__(self, yaq_client, *, name=None):
         self.yaq_client = yaq_client
         self.yaq_traits = yaq_client.traits

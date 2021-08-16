@@ -11,7 +11,7 @@ home-page = "https://github.com/bluesky/yaqc-bluesky"
 description-file = "README.md"
 requires-python = ">3.7"
 requires = ["yaqc>=2020.7.3",
-            "bluesky>=1.6.6",
+            "bluesky>=1.7.0",
             "happi>=1.9.0"]
 classifiers = [
     "Development Status :: 3 - Alpha",

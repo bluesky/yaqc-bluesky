@@ -7,6 +7,8 @@ from collections import deque
 import threading
 from warnings import warn
 
+from bluesky import protocols as bluesky_protocols
+
 from ._exceptions import (
     InvalidState,
     UnknownStatusFailure,
@@ -52,7 +54,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 
-class Status:
+class Status(bluesky_protocols.Status):
     """
     Track the status of a potentially-lengthy action like moving or triggering.
     Parameters
