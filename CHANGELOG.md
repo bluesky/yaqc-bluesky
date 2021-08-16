@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - state of busy no longer returned when devices are read
 - happi name field no longer overloaded, upstream now allows short names
 - happi now pinned to >= 1.9.0
+- bluesky now pinned to >= 1.7.0 (to take advantage of new protocols)
 
 ### Added
 - clients to has-position daemons now implement @property position, a common convention in bluesky
