@@ -9,7 +9,7 @@ class IsSensor(Base):
         self.trigger()  # need to run once to get channel information
         self._yaq_channel_names = self.yaq_client.get_channel_names()
         self._yaq_channel_units = self.yaq_client.get_channel_units()
-        self._yaq_channel_shapes = {k: tuple() for k in self._yaq_channel_names}  # upstream broken
+        self._yaq_channel_shapes = self.yaq_client.get_channel_shapes()
 
     def _describe(self, out):
         out = super()._describe(out)
@@ -17,7 +17,7 @@ class IsSensor(Base):
             meta = OrderedDict()
             meta["dtype"] = "number"
             meta["units"] = self._yaq_channel_units.get(name)
-            meta["shape"] = self._yaq_channel_shapes.get(name, ())
+            meta["shape"] = tuple(self._yaq_channel_shapes.get(name, ()))
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
         return out
 

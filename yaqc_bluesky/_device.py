@@ -25,5 +25,8 @@ def Device(port, *, host="127.0.0.1", name=None):
     # make instance
     cls = type("YAQDevice", tuple(clss), {})
     obj = cls(yaq_client=c, name=name)
+    status = obj.trigger()  # force initial reading to get things started
+    while not status.done:
+        pass
     obj.read()  # force initial reading to get things started
     return obj
