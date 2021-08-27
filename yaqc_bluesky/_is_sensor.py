@@ -15,9 +15,9 @@ class IsSensor(Base):
         out = super()._describe(out)
         for name in self._yaq_channel_names:
             meta = OrderedDict()
-            meta["dtype"] = "number"
-            meta["units"] = self._yaq_channel_units.get(name)
             meta["shape"] = tuple(self._yaq_channel_shapes.get(name, ()))
+            meta["dtype"] = "array" if meta["shape"] else "number"
+            meta["units"] = self._yaq_channel_units.get(name)
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
         return out
 

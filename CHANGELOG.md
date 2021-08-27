@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - happi now pinned to >= 1.9.0
 - Default for units and shape if not provided for the daemon
 - Sensor shapes properly applied in describe
+- Use "array" dtype for sensor channels with a shape
 
 ### Added
 - clients to has-position daemons now implement @property position, a common convention in bluesky
