@@ -11,8 +11,8 @@ from ._has_mapping import HasMapping
 
 traits = [
     ("has-position", HasPosition),
-    ("has-mapping", HasMapping),
     ("has-measure-trigger", HasMeasureTrigger),
+    ("has-mapping", HasMapping),
     ("is-sensor", IsSensor),
 ]
 

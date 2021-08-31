@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import time
 
 from ._base import Base
 
@@ -6,7 +7,9 @@ from ._base import Base
 class HasMapping(Base):
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
-        self.trigger()  # need to run once to get channel information
+        status = self.trigger()  # need to run once to get channel information
+        while not status.done:
+            time.sleep(0.01)
         self._yaq_channel_mappings = self.yaq_client.get_channel_mappings()
         self._yaq_mapping_units = self.yaq_client.get_channel_units()
         self._yaq_mapping_shapes = {

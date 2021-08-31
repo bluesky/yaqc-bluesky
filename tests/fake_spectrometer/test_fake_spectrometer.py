@@ -10,18 +10,18 @@ config = pathlib.Path(__file__).parent / "config.toml"
 
 @testing.run_daemon_entry_point("fake-spectrometer", config=config)
 def test_describe_read():
-    d = yaqc_bluesky.Device(39425)
+    d = yaqc_bluesky.Device(39426)
     d.trigger()
     describe_keys = list(d.describe().keys())
     read_keys = list(d.read().keys())
     assert describe_keys == read_keys
-    assert "wavelengths" in d.describe()["wa_counts"]["dims"]
-    assert "wavelengths" in d.describe()["wa_wavelengths"]["dims"]
+    assert "wavelengths" in d.describe()["test_counts"]["dims"]
+    assert "wavelengths" in d.describe()["test_wavelengths"]["dims"]
 
 
 @testing.run_daemon_entry_point("fake-spectrometer", config=config)
 def test_hint_fields():
-    d = yaqc_bluesky.Device(39425)
+    d = yaqc_bluesky.Device(39426)
     fields = d.hints["fields"]
     for field in fields:
         assert field in d.describe().keys()
