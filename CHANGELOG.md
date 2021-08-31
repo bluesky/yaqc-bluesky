@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 - clients to has-position daemons now implement @property position, a common convention in bluesky
+- handling of has-mapping trait to provide correlated dimensions between mapping and arrays
 
 ### Removed
 - no longer implement "set" for hardware without position (had raised NotImplementedError)
