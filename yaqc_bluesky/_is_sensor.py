@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import time
 
 from ._base import Base
 
