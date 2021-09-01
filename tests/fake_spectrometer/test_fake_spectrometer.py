@@ -15,8 +15,8 @@ def test_describe_read():
     describe_keys = list(d.describe().keys())
     read_keys = list(d.read().keys())
     assert describe_keys == read_keys
-    assert "wavelengths" in d.describe()["test_counts"]["dims"]
-    assert "wavelengths" in d.describe()["test_wavelengths"]["dims"]
+    assert "test_wavelengths" in d.describe()["test_counts"]["dims"]
+    assert "test_wavelengths" in d.describe()["test_wavelengths"]["dims"]
 
 
 @testing.run_daemon_entry_point("fake-spectrometer", config=config)
