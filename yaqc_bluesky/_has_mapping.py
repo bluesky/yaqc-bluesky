@@ -24,9 +24,9 @@ class HasMapping(Base):
             meta["shape"] = tuple(self._yaq_mapping_shapes[name])
             meta["dtype"] = "array" if meta["shape"] else "number"
             meta["units"] = self._yaq_mapping_units.get(name)
-            meta["dims"] = [name]
+            meta["dims"] = [f"{self.name}_{name}"]
             if len(meta["shape"]) > 1:
-                meta["dims"] = [f"{name}_{i}" for i in range(len(meta["shape"]))]
+                meta["dims"] = [f"{self.name}_{name}_{i}" for i in range(len(meta["shape"]))]
             map_dims[name] = meta["dims"]
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
 
