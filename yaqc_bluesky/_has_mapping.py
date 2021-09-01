@@ -11,7 +11,7 @@ class HasMapping(Base):
         while not status.done:
             time.sleep(0.01)
         self._yaq_channel_mappings = self.yaq_client.get_channel_mappings()
-        self._yaq_mapping_units = self.yaq_client.get_channel_units()
+        self._yaq_mapping_units = self.yaq_client.get_mapping_units()
         self._yaq_mapping_shapes = {
             k: v.shape for k, v in self.yaq_client.get_mappings().items() if k != "mapping_id"
         }
