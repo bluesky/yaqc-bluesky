@@ -6,11 +6,13 @@ import yaqc  # type: ignore
 from ._has_position import HasPosition
 from ._is_sensor import IsSensor
 from ._has_measure_trigger import HasMeasureTrigger
+from ._has_mapping import HasMapping
 
 
 traits = [
     ("has-position", HasPosition),
     ("has-measure-trigger", HasMeasureTrigger),
+    ("has-mapping", HasMapping),
     ("is-sensor", IsSensor),
 ]
 
