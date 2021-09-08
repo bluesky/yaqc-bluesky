@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-## [v2021.9.0]
+## [2021.9.0]
 
 ### Changed
 - state of busy no longer returned when devices are read
