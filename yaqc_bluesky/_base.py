@@ -22,19 +22,24 @@ class Base:
         self._lock = threading.Lock()
 
     def _describe(self, out):
-        for key, defn in self.yaq_client._protocol.get("fields", {}).items():
-            if key == "origin":
-                continue
-            if not defn["fields"]["dynamic"]:
+        for key, prop in self.yaq_client.properties.items():
+            if not prop.dynamic or prop.record_kind != "data":
                 continue
             out[f"{self.name}_{key}"] = self._field_metadata
-            if defn["fields"]["type"] in ["int", "float", "double"]:
+            if prop.type in ["int", "float", "double"]:
                 out[f"{self.name}_{key}"]["dtype"] = "number"
-            elif defn["fields"]["type"] == "string":
+            elif prop.type == "string":
                 out[f"{self.name}_{key}"]["dtype"] = "string"
             else:
                 out[f"{self.name}_{key}"]["dtype"] = "array"
                 # TODO shape?
+            if hasattr(prop, "units"):
+                out[f"{self.name}_{key}"]["units"] = prop.units()
+            if hasattr(prop, "limits"):
+                lo, hi = prop.limits()
+                out[f"{self.name}_{key}"]["lower_ctrl_limit"] = lo
+                out[f"{self.name}_{key}"]["upper_ctrl_limit"] = hi
+
         return out
 
     def describe(self) -> OrderedDict:
@@ -44,19 +49,23 @@ class Base:
 
     def describe_configuration(self) -> OrderedDict:
         out: OrderedDict = OrderedDict()
-        for key, defn in self.yaq_client._protocol.get("fields", {}).items():
-            if key == "origin":
-                continue
-            if defn["fields"]["dynamic"]:
+        for key, prop in self.yaq_client.properties.items():
+            if prop.record_kind != "metadata":
                 continue
             out[f"{self.name}_{key}"] = self._field_metadata
-            if defn["fields"]["type"] in ["int", "float", "double"]:
+            if prop.type in ["int", "float", "double"]:
                 out[f"{self.name}_{key}"]["dtype"] = "number"
-            elif defn["fields"]["type"] == "string":
+            elif prop.type == "string":
                 out[f"{self.name}_{key}"]["dtype"] = "string"
             else:
                 out[f"{self.name}_{key}"]["dtype"] = "array"
                 # TODO shape?
+            if hasattr(prop, "units"):
+                out[f"{self.name}_{key}"]["units"] = prop.units()
+            if hasattr(prop, "limits"):
+                lo, hi = prop.limits()
+                out[f"{self.name}_{key}"]["lower_ctrl_limit"] = lo
+                out[f"{self.name}_{key}"]["upper_ctrl_limit"] = hi
 
         return out
 
@@ -77,14 +86,11 @@ class Base:
         return out
 
     def _read(self, out, ts) -> OrderedDict:
-        for key, defn in self.yaq_client._protocol.get("fields", {}).items():
-            if key == "origin":
+        for key, prop in self.yaq_client.properties.items():
+            if not prop.dynamic or prop.record_kind != "data":
                 continue
-            if not defn["fields"]["dynamic"]:
-                continue
-            getter = defn["fields"]["getter"]
             out[f"{self.name}_{key}"] = {
-                "value": getattr(self.yaq_client, getter)(),
+                "value": prop(),
                 "timestamp": ts,
             }
         return out
@@ -99,14 +105,11 @@ class Base:
     def read_configuration(self) -> OrderedDict:
         out = OrderedDict()
         ts = time.time()
-        for key, defn in self.yaq_client._protocol.get("fields", {}).items():
-            if key == "origin":
+        for key, prop in self.yaq_client.properties.items():
+            if prop.record_kind != "metadata":
                 continue
-            if defn["fields"]["dynamic"]:
-                continue
-            getter = defn["fields"]["getter"]
             out[f"{self.name}_{key}"] = {
-                "value": getattr(self.yaq_client, getter)(),
+                "value": prop(),
                 "timestamp": ts,
             }
         return out
