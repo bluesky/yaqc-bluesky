@@ -10,7 +10,7 @@ author-email = "blaise@untzag.com"
 home-page = "https://github.com/bluesky/yaqc-bluesky"
 description-file = "README.md"
 requires-python = ">3.7"
-requires = ["yaqc>=2020.7.3",
+requires = ["yaqc>=2021.10.0",
             "bluesky>=1.6.6",
             "happi>=1.9.0"]
 classifiers = [
