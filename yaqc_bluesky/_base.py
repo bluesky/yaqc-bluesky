@@ -22,6 +22,24 @@ class Base:
         self._lock = threading.Lock()
 
     def _describe(self, out):
+        for key, prop in self.yaq_client.properties.items():
+            if not prop.dynamic or prop.record_kind != "data":
+                continue
+            out[f"{self.name}_{key}"] = self._field_metadata
+            if prop.type in ["int", "float", "double"]:
+                out[f"{self.name}_{key}"]["dtype"] = "number"
+            elif prop.type == "string":
+                out[f"{self.name}_{key}"]["dtype"] = "string"
+            else:
+                out[f"{self.name}_{key}"]["dtype"] = "array"
+                # TODO shape?
+            if hasattr(prop, "units"):
+                out[f"{self.name}_{key}"]["units"] = prop.units()
+            if hasattr(prop, "limits"):
+                lo, hi = prop.limits()
+                out[f"{self.name}_{key}"]["lower_ctrl_limit"] = lo
+                out[f"{self.name}_{key}"]["upper_ctrl_limit"] = hi
+
         return out
 
     def describe(self) -> OrderedDict:
@@ -30,7 +48,26 @@ class Base:
         return out
 
     def describe_configuration(self) -> OrderedDict:
-        return OrderedDict()
+        out: OrderedDict = OrderedDict()
+        for key, prop in self.yaq_client.properties.items():
+            if prop.record_kind != "metadata":
+                continue
+            out[f"{self.name}_{key}"] = self._field_metadata
+            if prop.type in ["int", "float", "double"]:
+                out[f"{self.name}_{key}"]["dtype"] = "number"
+            elif prop.type == "string":
+                out[f"{self.name}_{key}"]["dtype"] = "string"
+            else:
+                out[f"{self.name}_{key}"]["dtype"] = "array"
+                # TODO shape?
+            if hasattr(prop, "units"):
+                out[f"{self.name}_{key}"]["units"] = prop.units()
+            if hasattr(prop, "limits"):
+                lo, hi = prop.limits()
+                out[f"{self.name}_{key}"]["lower_ctrl_limit"] = lo
+                out[f"{self.name}_{key}"]["upper_ctrl_limit"] = hi
+
+        return out
 
     @property
     def _field_metadata(self) -> OrderedDict:
@@ -49,6 +86,13 @@ class Base:
         return out
 
     def _read(self, out, ts) -> OrderedDict:
+        for key, prop in self.yaq_client.properties.items():
+            if not prop.dynamic or prop.record_kind != "data":
+                continue
+            out[f"{self.name}_{key}"] = {
+                "value": prop(),
+                "timestamp": ts,
+            }
         return out
 
     def read(self) -> OrderedDict:
@@ -59,7 +103,16 @@ class Base:
         return out
 
     def read_configuration(self) -> OrderedDict:
-        return OrderedDict()
+        out = OrderedDict()
+        ts = time.time()
+        for key, prop in self.yaq_client.properties.items():
+            if prop.record_kind != "metadata":
+                continue
+            out[f"{self.name}_{key}"] = {
+                "value": prop(),
+                "timestamp": ts,
+            }
+        return out
 
     def trigger(self) -> Status:
         # should be overloaded for those devices that need a trigger

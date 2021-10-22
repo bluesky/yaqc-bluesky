@@ -10,17 +10,15 @@ class HasPosition(Base):
 
     def _describe(self, out):
         out = super()._describe(out)
-        meta = OrderedDict()
-        meta["dtype"] = "number"
-        meta["units"] = self.yaq_units
-        out[f"{self.name}_setpoint"] = OrderedDict(self._field_metadata, **meta)
-        out[f"{self.name}_readback"] = OrderedDict(self._field_metadata, **meta)
+        out[self.name] = out[f"{self.name}_position"]
+        out.move_to_end(self.name, last=False)
+        del out[f"{self.name}_position"]
         return out
 
     @property
     def hints(self):
         out = super().hints
-        out["fields"].append(f"{self.name}_readback")
+        out["fields"].append(f"{self.name}")
         return out
 
     @property
@@ -29,14 +27,9 @@ class HasPosition(Base):
 
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
-        out[f"{self.name}_setpoint"] = {
-            "value": self.yaq_client.get_destination(),
-            "timestamp": ts,
-        }
-        out[f"{self.name}_readback"] = {
-            "value": self.yaq_client.get_position(),
-            "timestamp": ts,
-        }
+        out[self.name] = out[f"{self.name}_position"]
+        out.move_to_end(self.name, last=False)
+        del out[f"{self.name}_position"]
         return out
 
     def set(self, value):
