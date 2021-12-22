@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-##[2021.12.0]
+## [2021.12.0]
 
 ### Changed
 - Use yaq properties to fill out read/configuration
@@ -54,7 +54,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - initial release
 
 [Unreleased]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.12.0...master
-[2021.9.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.9.0...v2021.12.0
+[2021.12.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.9.0...v2021.12.0
 [2021.9.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.1.1...v2021.9.0
 [2021.1.1]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.1.0...v2021.1.1
 [2021.1.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.07.1...v2021.1.0
