@@ -24,8 +24,8 @@ class Base:
     def __repr__(self):
         name = self.yaq_name
         protocol = self.yaq_client._protocol["protocol"]
-        host = self.yaq_client.host
-        port = self.yaq_client.port
+        host = self.yaq_client._host
+        port = self.yaq_client._port
         return f"<yaqc_bluesky.Device to {host}:{port} ({protocol}:{name})>"
 
     def _describe(self, out):
