@@ -21,6 +21,13 @@ class Base:
         self.parent = None
         self._lock = threading.Lock()
 
+    def __repr__(self):
+        name = self.yaq_name
+        protocol = self.yaq_client._protocol["protocol"]
+        host = self.yaq_client.host
+        port = self.yaq_client.port
+        return f"<yaqc_bluesky.Device to {host}:{port} ({protocol}:{name})>"
+
     def _describe(self, out):
         for key, prop in self.yaq_client.properties.items():
             if not prop.dynamic or prop.record_kind != "data":
