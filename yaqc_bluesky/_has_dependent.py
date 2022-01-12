@@ -16,7 +16,7 @@ class HasDependent(Base):
             try:
                 dev = Device(port=int(v.split(":", 1)[1]), host=v.split(":", 1)[0])
                 self._dependent_hardware[k] = dev
-            except:
+            except ConnectionError as e:
                 warnings.warn(
                     f"Unable to connect to {k} from {self.name}, ignoring dependent relationship."
                 )
