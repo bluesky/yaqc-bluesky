@@ -8,6 +8,9 @@ from ._base import Base
 class HasDependent(Base):
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
+        # Avoid circular import
+        from ._device import Device
+
         self._dependent_hardware = {}
         for k, v in self.yaq_client.get_dependent_hardware().items():
             try:
