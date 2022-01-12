@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 - human readable repr for device
+- Handling of devices which provide dependent hardware
 
 ## [2021.12.0]
 
