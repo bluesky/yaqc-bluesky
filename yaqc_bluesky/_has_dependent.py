@@ -13,9 +13,6 @@ class HasDependent(Base):
 
         self._dependent_hardware = {}
         for k, v in self.yaq_client.get_dependent_hardware().items():
-            dev = Device(port=int(v.split(":", 1)[1]), host=v.split(":", 1)[0])
-            self._dependent_hardware[k] = dev
-            continue
             try:
                 dev = Device(port=int(v.split(":", 1)[1]), host=v.split(":", 1)[0])
                 self._dependent_hardware[k] = dev
