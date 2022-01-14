@@ -19,7 +19,7 @@ class HasDependent(Base):
                 if host in ("localhost", "127.0.0.1"):
                     host = self.yaq_client._host
                 setattr(self, k, Device(port=int(port), host=host))
-            except ConnectionError as e:
+            except (ConnectionError, OSError) as e:
                 warnings.warn(
                     f"Unable to connect to {k} from {self.name}, ignoring dependent relationship."
                 )
@@ -27,6 +27,8 @@ class HasDependent(Base):
     def _describe(self, out):
         out = super()._describe(out)
         for d in self._dependent_hardware.keys():
+            if not hasattr(self, d):
+                continue
             d = getattr(self, d)
             out.update(d.describe())
         return out
@@ -34,6 +36,8 @@ class HasDependent(Base):
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
         for d in self._dependent_hardware.keys():
+            if not hasattr(self, d):
+                continue
             d = getattr(self, d)
             out.update(d.read())
         return out
@@ -41,6 +45,8 @@ class HasDependent(Base):
     def read_configuration(self) -> OrderedDict:
         out = super().read_configuration()
         for d in self._dependent_hardware.keys():
+            if not hasattr(self, d):
+                continue
             d = getattr(self, d)
             out.update(d.read_configuration())
         return out
@@ -48,6 +54,8 @@ class HasDependent(Base):
     def describe_configuration(self) -> OrderedDict:
         out = super().describe_configuration()
         for d in self._dependent_hardware.keys():
+            if not hasattr(self, d):
+                continue
             d = getattr(self, d)
             out.update(d.describe_configuration())
         return out
