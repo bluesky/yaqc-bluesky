@@ -18,7 +18,7 @@ class HasDependent(Base):
                 # replace hosts local to my own daemon, which may be remote to the client
                 if host in ("localhost", "127.0.0.1"):
                     host = self.yaq_client._host
-                self.dependent_hardware[k] = Device(port=port, host=host)
+                self.dependent_hardware[k] = Device(port=int(port), host=host)
             except ConnectionError as e:
                 warnings.warn(
                     f"Unable to connect to {k} from {self.name}, ignoring dependent relationship."
