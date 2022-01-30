@@ -7,6 +7,7 @@ from ._has_position import HasPosition
 from ._is_sensor import IsSensor
 from ._has_measure_trigger import HasMeasureTrigger
 from ._has_mapping import HasMapping
+from ._has_dependent import HasDependent
 
 
 traits = [
@@ -24,6 +25,9 @@ def Device(port, *, host="127.0.0.1", name=None):
     for trait, cls in traits:
         if trait in c.traits:
             clss.append(cls)
+    # Special case for now, should likely become a proper trait
+    if hasattr(c, "get_dependent_hardware"):
+        clss.append(HasDependent)
     # make instance
     cls = type("YAQDevice", tuple(clss), {})
     obj = cls(yaq_client=c, name=name)
