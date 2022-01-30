@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.1.0]
+
 ### Added
 - human readable repr for device
 - Handling of devices which provide dependent hardware
@@ -57,7 +59,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.12.0...master
+[Unreleased]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2022.1.0...master
+[2022.1.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.12.0...v2022.1.0
 [2021.12.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.9.0...v2021.12.0
 [2021.9.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.1.1...v2021.9.0
 [2021.1.1]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.1.0...v2021.1.1
