@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- namespace dependent hardware to avoid name collisions
+
 ## [2022.1.0]
 
 ### Added
