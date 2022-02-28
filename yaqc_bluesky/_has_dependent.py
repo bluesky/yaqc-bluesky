@@ -30,7 +30,7 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.describe())
+            out.update({f"{self.name}.{k}": v for k, v in d.describe()})
         return out
 
     def _read(self, out, ts) -> OrderedDict:
@@ -39,7 +39,7 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.read())
+            out.update({f"{self.name}.{k}": v for k, v in d.read()})
         return out
 
     def read_configuration(self) -> OrderedDict:
@@ -48,7 +48,7 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.read_configuration())
+            out.update({f"{self.name}.{k}": v for k, v in d.read_configuration()})
         return out
 
     def describe_configuration(self) -> OrderedDict:
@@ -57,7 +57,7 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.describe_configuration())
+            out.update({f"{self.name}.{k}": v for k, v in d.describe_configuration()})
         return out
 
     @property
