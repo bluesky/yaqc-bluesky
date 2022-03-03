@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- Invalid splatting of has mapping values into an append call, which only takes one argument
+
 ## [2022.1.0]
 
 ### Added
