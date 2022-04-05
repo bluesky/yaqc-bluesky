@@ -1,5 +1,6 @@
 from collections import OrderedDict
 import time
+import numpy as np
 
 from ._base import Base
 
@@ -21,20 +22,20 @@ class HasMapping(Base):
         map_dims = {}
         for name in self._yaq_mapping_shapes:
             meta = OrderedDict()
-            meta["shape"] = tuple(self._yaq_mapping_shapes[name])
+            meta["shape"] = tuple(i for i in self._yaq_mapping_shapes[name] if i != 1)
             meta["dtype"] = "array" if meta["shape"] else "number"
             meta["units"] = self._yaq_mapping_units.get(name)
-            meta["dims"] = [f"{self.name}_{name}"]
-            if len(meta["shape"]) > 1:
-                meta["dims"] = [f"{self.name}_{name}_{i}" for i in range(len(meta["shape"]))]
-            map_dims[name] = meta["dims"]
+            meta["dims"] = [
+                f"{self.name}_{i}" for i, v in enumerate(self._yaq_mapping_shapes[name]) if v > 1
+            ]
+            map_dims[name] = set(meta["dims"])
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
 
         for chan, dims in self._yaq_channel_mappings.items():
-            ch_dims = []
+            ch_dims = set()
             for d in dims:
-                ch_dims.extend(map_dims[d])
-            out[f"{self.name}_{chan}"]["dims"] = ch_dims
+                ch_dims.update(map_dims[d])
+            out[f"{self.name}_{chan}"]["dims"] = sorted(ch_dims)
         return out
 
     @property
@@ -49,5 +50,5 @@ class HasMapping(Base):
         for name in measured:
             if name == "mapping_id":
                 continue
-            out[f"{self.name}_{name}"] = {"value": measured[name], "timestamp": ts}
+            out[f"{self.name}_{name}"] = {"value": np.squeeze(measured[name]), "timestamp": ts}
         return out
