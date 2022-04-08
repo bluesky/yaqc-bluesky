@@ -5,7 +5,7 @@ import yaqc_bluesky
 from yaqd_core import testing
 from bluesky import RunEngine
 from bluesky.plans import count
-import databroker
+import databroker.v2
 
 
 __here__ = pathlib.Path(__file__).parent
