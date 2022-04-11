@@ -33,7 +33,7 @@ class HasMapping(Base):
         for chan, dims in self._yaq_channel_mappings.items():
             ch_dims = []
             for d in dims:
-                ch_dims.append(*map_dims[d])
+                ch_dims.extend(map_dims[d])
             out[f"{self.name}_{chan}"]["dims"] = ch_dims
         return out
 
