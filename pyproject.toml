@@ -30,8 +30,9 @@ dev = ["black",
        "pre-commit",
        "pytest",
        "yaqd_core",
-       "yaqd_fakes",
-       "mypy"]
+       "yaqd_fakes>=2022.3.0",
+       "mypy",
+       "databroker<2"]
 
 [tool.flit.entrypoints."happi.containers"]
 yaq = "yaqc_bluesky._happi"
