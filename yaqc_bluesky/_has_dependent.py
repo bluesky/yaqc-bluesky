@@ -11,7 +11,12 @@ class HasDependent(Base):
         # Avoid circular import
         from ._device import Device
 
-        self._dependent_hardware = self.yaq_client.get_dependent_hardware()
+        self.prefix = f"{self.name}_"
+        self._dependent_hardware = {
+            k[len(self.prefix) :] if k.startswith(self.prefix) else k: v
+            for k, v in self.yaq_client.get_dependent_hardware().items()
+        }
+
         for k, v in self._dependent_hardware.items():
             try:
                 host, port = v.split(":", 1)
@@ -19,6 +24,7 @@ class HasDependent(Base):
                 if host in ("localhost", "127.0.0.1"):
                     host = self.yaq_client._host
                 setattr(self, k, Device(port=int(port), host=host))
+                getattr(self, k).parent = self
             except (ConnectionError, OSError) as e:
                 warnings.warn(
                     f"Unable to connect to {k} from {self.name}, ignoring dependent relationship."
@@ -30,7 +36,12 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.describe())
+            out.update(
+                {
+                    k if k.startswith(self.prefix) else f"{self.name}_{k}": v
+                    for k, v in d.describe().items()
+                }
+            )
         return out
 
     def _read(self, out, ts) -> OrderedDict:
@@ -39,7 +50,12 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.read())
+            out.update(
+                {
+                    k if k.startswith(self.prefix) else f"{self.name}_{k}": v
+                    for k, v in d.read().items()
+                }
+            )
         return out
 
     def read_configuration(self) -> OrderedDict:
@@ -48,7 +64,12 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.read_configuration())
+            out.update(
+                {
+                    k if k.startswith(self.prefix) else f"{self.name}_{k}": v
+                    for k, v in d.read_configuration().items()
+                }
+            )
         return out
 
     def describe_configuration(self) -> OrderedDict:
@@ -57,7 +78,12 @@ class HasDependent(Base):
             if not hasattr(self, d):
                 continue
             d = getattr(self, d)
-            out.update(d.describe_configuration())
+            out.update(
+                {
+                    k if k.startswith(self.prefix) else f"{self.name}_{k}": v
+                    for k, v in d.describe_configuration().items()
+                }
+            )
         return out
 
     @property
