@@ -28,6 +28,7 @@ class HasMapping(Base):
             meta["dims"] = [
                 f"{self.name}_{i}" for i, v in enumerate(self._yaq_mapping_shapes[name]) if v > 1
             ]
+            meta["independent"] = True
             map_dims[name] = set(meta["dims"])
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
 
