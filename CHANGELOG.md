@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - namespace dependent hardware to avoid name collisions
 - Invalid splatting of has mapping values into an append call, which only takes one argument
 
+### Added
+- "independent" flag to mapping added fields marking them as independent variables that should not be treated as "channels"
+
 ## [2022.1.0]
 
 ### Added
