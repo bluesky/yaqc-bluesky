@@ -131,12 +131,23 @@ class Base:
         st = Status()
 
         def poll():
+            exc_count = 0
+            sleep = 0.01
             while True:
-                if self.yaq_client.busy():
+                try:
+                    if self.yaq_client.busy():
+                        time.sleep(sleep)
+                        # exponential backoff
+                        sleep = min(0.1, sleep * 2)
+                    else:
+                        break
+                except Exception as e:
+                    exc_count += 1
+                    if exc_count > 10:
+                        st.set_exception(e)
+                        return
                     time.sleep(0.1)
-                else:
-                    break
-            st._finished()
+            st.set_finished()
 
         threading.Thread(target=poll).start()
         return st
