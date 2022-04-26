@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+- More error tolerant wait until still method which properly sets the exception of the status object
+
 ## [2022.4.0]
 
 ### Fixed
