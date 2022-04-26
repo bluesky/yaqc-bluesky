@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2022.4.1]
+
 ### Fixed
 - More error tolerant wait until still method which properly sets the exception of the status object
 
@@ -71,10 +73,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2022.4.0...master
-[2022.4.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2022.1.0...v2022.4.0
-[2022.1.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.12.0...v2022.1.0
-[2021.12.0]: https://gitlab.com/bluesky/yaqc-bluesky/-/compare/v2021.9.0...v2021.12.0
+[Unreleased]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.4.1...master
+[2022.4.1]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.4.0...v2022.4.1
+[2022.4.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.1.0...v2022.4.0
+[2022.1.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2021.12.0...v2022.1.0
+[2021.12.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2021.9.0...v2021.12.0
 [2021.9.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.1.1...v2021.9.0
 [2021.1.1]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.1.0...v2021.1.1
 [2021.1.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2020.07.1...v2021.1.0
