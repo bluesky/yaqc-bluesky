@@ -7,8 +7,6 @@ from ._base import Base
 class IsSensor(Base):
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
-        while not status.done:
-            time.sleep(0.01)
         self._yaq_channel_names = self.yaq_client.get_channel_names()
         self._yaq_channel_units = self.yaq_client.get_channel_units()
         self._yaq_channel_shapes = self.yaq_client.get_channel_shapes()
