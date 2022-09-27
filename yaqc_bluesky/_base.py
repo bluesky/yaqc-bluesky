@@ -6,10 +6,13 @@ import threading
 import time
 from typing import Dict
 
+from ._callbacks import with_func_callbacks
 from ._status import Status
 
 
 class Base:
+
+    @with_func_callbacks
     def __init__(self, yaq_client, *, name=None):
         self.yaq_client = yaq_client
         self.yaq_traits = yaq_client.traits
@@ -28,6 +31,7 @@ class Base:
         port = self.yaq_client._port
         return f"<yaqc_bluesky.Device to {host}:{port} ({protocol}:{name})>"
 
+    @with_func_callbacks
     def _describe(self, out):
         for key, prop in self.yaq_client.properties.items():
             if not prop.dynamic or prop.record_kind != "data":
@@ -49,11 +53,13 @@ class Base:
 
         return out
 
+    @with_func_callbacks
     def describe(self) -> OrderedDict:
         out: OrderedDict = OrderedDict()
         out = self._describe(out)
         return out
 
+    @with_func_callbacks
     def describe_configuration(self) -> OrderedDict:
         out: OrderedDict = OrderedDict()
         for key, prop in self.yaq_client.properties.items():
@@ -76,6 +82,7 @@ class Base:
 
         return out
 
+    @with_func_callbacks
     @property
     def _field_metadata(self) -> OrderedDict:
         """Metadata to be shared by all fields for this daemon."""
@@ -86,12 +93,14 @@ class Base:
         out["shape"] = tuple()  # should be None, but upstream bluesky is broken
         return out
 
+    @with_func_callbacks
     @property
     def hints(self) -> Dict:
         out: Dict = {}
         out["fields"] = []
         return out
 
+    @with_func_callbacks
     def _read(self, out, ts) -> OrderedDict:
         for key, prop in self.yaq_client.properties.items():
             if not prop.dynamic or prop.record_kind != "data":
@@ -102,6 +111,7 @@ class Base:
             }
         return out
 
+    @with_func_callbacks
     def read(self) -> OrderedDict:
         with self._lock:
             out: OrderedDict = OrderedDict()
@@ -109,6 +119,7 @@ class Base:
             out = self._read(out, ts)
         return out
 
+    @with_func_callbacks
     def read_configuration(self) -> OrderedDict:
         out = OrderedDict()
         ts = time.time()
@@ -121,12 +132,14 @@ class Base:
             }
         return out
 
+    @with_func_callbacks
     def trigger(self) -> Status:
         # should be overloaded for those devices that need a trigger
         st = Status()
         st._finished()
         return st
 
+    @with_func_callbacks
     def _wait_until_still(self):
         st = Status()
 
