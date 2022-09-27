@@ -2,12 +2,13 @@ __all__ = ["callbacks_before_func", "callbacks_after_func"]
 
 import functools
 from dataclasses import dataclass
+from typing import List, Callable
 
 
-callbacks_before_func = []
+callbacks_before_func: List[Callable[[FunctionArgs], None, None]] = []
 
 
-callbacks_after_func = []
+callbacks_after_func: List[Callable[[FunctionResponse], None, None]]  = []
 
 
 @dataclass
