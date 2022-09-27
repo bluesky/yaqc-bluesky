@@ -38,7 +38,7 @@ def with_func_callbacks(func):
             cb(message)
         out = func(self, *args, **kwargs)
         for cb in callbacks_after_func:
-            response = FunctionResponse(func.__qualname__, self.yaq_client._host, self.yaq_client_port, out)
+            response = FunctionResponse(func.__qualname__, self.yaq_client._host, self.yaq_client._port, out)
         return out
 
     return inner
