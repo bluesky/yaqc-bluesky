@@ -82,7 +82,6 @@ class Base:
 
         return out
 
-    @with_func_callbacks
     @property
     def _field_metadata(self) -> OrderedDict:
         """Metadata to be shared by all fields for this daemon."""
@@ -93,7 +92,6 @@ class Base:
         out["shape"] = tuple()  # should be None, but upstream bluesky is broken
         return out
 
-    @with_func_callbacks
     @property
     def hints(self) -> Dict:
         out: Dict = {}
