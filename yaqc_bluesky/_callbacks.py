@@ -5,12 +5,6 @@ from dataclasses import dataclass
 from typing import List, Callable
 
 
-callbacks_before_func: List[Callable[[FunctionArgs], None, None]] = []
-
-
-callbacks_after_func: List[Callable[[FunctionResponse], None, None]]  = []
-
-
 @dataclass
 class FunctionArgs:
     name: str
@@ -28,16 +22,23 @@ class FunctionResponse:
     data: object
 
 
+callbacks_before_func: List[Callable[[FunctionArgs], None, None]] = []
+
+callbacks_after_func: List[Callable[[FunctionResponse], None, None]]  = []
+
+
+
+
 def with_func_callbacks(func):
 
     @functools.wraps(func)
     def inner(self, *args, **kwargs):
         for cb in callbacks_before_func:
-            message = FunctionCallbackItem(func.__name__, self.yaq_client._host, self.yaq_client._port, args=args, kwargs=kwargs)
+            message = FunctionCallbackItem(func.__qualname__, self.yaq_client._host, self.yaq_client._port, args=args, kwargs=kwargs)
             cb(message)
         out = func(self, *args, **kwargs)
         for cb in callbacks_after_func:
-            response = FunctionCallbackItem(func.__name__, self.yaq_client._host, self.yaq_client_port, out)
+            response = FunctionCallbackItem(func.__qualname__, self.yaq_client._host, self.yaq_client_port, out)
         return out
 
     return inner
