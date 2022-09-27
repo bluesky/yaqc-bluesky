@@ -27,7 +27,7 @@ def with_func_callbacks(func):
 
     def inner(*args, **kwargs):
         for cb in callbacks_before_func:
-            message = FunctionCallbackItem(func.__name__, args=args, kwargs=kwargs
+            message = FunctionCallbackItem(func.__name__, args=args, kwargs=kwargs)
             cb(message)
         out = func(*args, **kwargs)
         for cb in callbacks_after_func:
