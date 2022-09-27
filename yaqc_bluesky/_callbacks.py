@@ -22,7 +22,7 @@ class FunctionResponse:
     data: object
 
 
-callbacks_before_func: List[Callable[[FunctionArgs], Amu]] = []
+callbacks_before_func: List[Callable[[FunctionArgs], Any]] = []
 
 callbacks_after_func: List[Callable[[FunctionResponse], Any]]  = []
 
