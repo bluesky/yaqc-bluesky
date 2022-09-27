@@ -3,9 +3,12 @@ import time
 import warnings
 
 from ._base import Base
+from ._callbacks import with_func_callbacks
 
 
 class HasDependent(Base):
+
+    @with_func_callbacks
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
         # Avoid circular import
@@ -30,6 +33,7 @@ class HasDependent(Base):
                     f"Unable to connect to {k} from {self.name}, ignoring dependent relationship."
                 )
 
+    @with_func_callbacks
     def _describe(self, out):
         out = super()._describe(out)
         for d in self._dependent_hardware.keys():
@@ -44,6 +48,7 @@ class HasDependent(Base):
             )
         return out
 
+    @with_func_callbacks
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
         for d in self._dependent_hardware.keys():
@@ -58,6 +63,7 @@ class HasDependent(Base):
             )
         return out
 
+    @with_func_callbacks
     def read_configuration(self) -> OrderedDict:
         out = super().read_configuration()
         for d in self._dependent_hardware.keys():
@@ -72,6 +78,7 @@ class HasDependent(Base):
             )
         return out
 
+    @with_func_callbacks
     def describe_configuration(self) -> OrderedDict:
         out = super().describe_configuration()
         for d in self._dependent_hardware.keys():
@@ -86,6 +93,7 @@ class HasDependent(Base):
             )
         return out
 
+    @with_func_callbacks
     @property
     def component_names(self):
         return tuple(self._dependent_hardware.keys())

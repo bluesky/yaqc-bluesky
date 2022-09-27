@@ -3,6 +3,7 @@ __all__ = ["Device"]
 
 import yaqc  # type: ignore
 
+from ._callbacks import with_func_callbacks
 from ._has_position import HasPosition
 from ._is_sensor import IsSensor
 from ._has_measure_trigger import HasMeasureTrigger

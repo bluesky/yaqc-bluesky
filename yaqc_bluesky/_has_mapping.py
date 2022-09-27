@@ -3,9 +3,12 @@ import time
 import numpy as np
 
 from ._base import Base
+from ._callbacks import with_func_callbacks
 
 
 class HasMapping(Base):
+
+    @with_func_callbacks
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
         status = self.trigger()  # need to run once to get channel information
@@ -17,6 +20,7 @@ class HasMapping(Base):
             k: v.shape for k, v in self.yaq_client.get_mappings().items() if k != "mapping_id"
         }
 
+    @with_func_callbacks
     def _describe(self, out):
         out = super()._describe(out)
         map_dims = {}
@@ -39,12 +43,14 @@ class HasMapping(Base):
             out[f"{self.name}_{chan}"]["dims"] = sorted(ch_dims)
         return out
 
+    @with_func_callbacks
     @property
     def hints(self):
         out = super().hints
         out["fields"] += [f"{self.name}_{n}" for n in self._yaq_mapping_shapes]
         return out
 
+    @with_func_callbacks
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
         measured = self.yaq_client.get_mappings()  # locked by behavior of super().read

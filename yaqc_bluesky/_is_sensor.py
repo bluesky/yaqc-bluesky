@@ -2,15 +2,19 @@ from collections import OrderedDict
 import time
 
 from ._base import Base
+from ._callbacks import with_func_callbacks
 
 
 class IsSensor(Base):
+
+    @with_func_callbacks
     def __init__(self, yaq_client, *, name=None):
         super().__init__(yaq_client, name=name)
         self._yaq_channel_names = self.yaq_client.get_channel_names()
         self._yaq_channel_units = self.yaq_client.get_channel_units()
         self._yaq_channel_shapes = self.yaq_client.get_channel_shapes()
 
+    @with_func_callbacks
     def _describe(self, out):
         out = super()._describe(out)
         for name in self._yaq_channel_names:
@@ -21,12 +25,14 @@ class IsSensor(Base):
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
         return out
 
+    @with_func_callbacks
     @property
     def hints(self):
         out = super().hints
         out["fields"] += [f"{self.name}_{n}" for n in self._yaq_channel_names]
         return out
 
+    @with_func_callbacks
     def _read(self, out, ts) -> OrderedDict:
         out = super()._read(out, ts)
         measured = self.yaq_client.get_measured()  # locked by behavior of super().read
