@@ -19,15 +19,15 @@ class HasPosition(Base):
         del out[f"{self.name}_position"]
         return out
 
-    @with_func_callbacks
     @property
+    @with_func_callbacks
     def hints(self):
         out = super().hints
         out["fields"].append(f"{self.name}")
         return out
 
-    @with_func_callbacks
     @property
+    @with_func_callbacks
     def position(self) -> float:
         return self.yaq_client.get_position()
 

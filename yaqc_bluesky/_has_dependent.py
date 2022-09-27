@@ -93,7 +93,7 @@ class HasDependent(Base):
             )
         return out
 
-    @with_func_callbacks
     @property
+    @with_func_callbacks
     def component_names(self):
         return tuple(self._dependent_hardware.keys())

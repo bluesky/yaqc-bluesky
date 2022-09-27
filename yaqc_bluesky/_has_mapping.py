@@ -43,8 +43,8 @@ class HasMapping(Base):
             out[f"{self.name}_{chan}"]["dims"] = sorted(ch_dims)
         return out
 
-    @with_func_callbacks
     @property
+    @with_func_callbacks
     def hints(self):
         out = super().hints
         out["fields"] += [f"{self.name}_{n}" for n in self._yaq_mapping_shapes]

@@ -25,8 +25,8 @@ class IsSensor(Base):
             out[f"{self.name}_{name}"] = OrderedDict(self._field_metadata, **meta)
         return out
 
-    @with_func_callbacks
     @property
+    @with_func_callbacks
     def hints(self):
         out = super().hints
         out["fields"] += [f"{self.name}_{n}" for n in self._yaq_channel_names]
