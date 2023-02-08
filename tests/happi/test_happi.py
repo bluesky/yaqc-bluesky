@@ -15,8 +15,8 @@ def test_add_then_find():
     with tempfile.NamedTemporaryFile() as f:
         backend = happi.backends.backend(f.name)
         happi_client = happi.Client(database=backend)
-        happi_client.add_device(item)
-        output = happi_client.find_device(name="test")
+        happi_client.add_item(item)
+        output = happi_client.find_item(name="test")
 
 
 @testing.run_daemon_entry_point(
@@ -27,7 +27,7 @@ def test_add_then_load():
     with tempfile.NamedTemporaryFile() as f:
         backend = happi.backends.backend(f.name)
         happi_client = happi.Client(database=backend)
-        happi_client.add_device(item)
+        happi_client.add_item(item)
         output = happi_client.load_device(name="test")
 
 
