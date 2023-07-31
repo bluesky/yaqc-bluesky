@@ -28,7 +28,7 @@ class Base:
             if prop.type not in ["double"]:
                 continue
             self.children.append(PropertyDevice(self, key))
-            if not getattr(self, key):  # don't overwrite please
+            if not hasattr(self, key):  # don't overwrite please
                 setattr(self, key, self.children[-1])
 
     def __repr__(self):
