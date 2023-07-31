@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Changed
+- properties now appear as sub-devices
+
 ### Fixed
 - sensors no-longer force a measure at connect-time (this requires sensors to actually be traits compliant)
 
