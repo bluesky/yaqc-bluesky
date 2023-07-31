@@ -26,8 +26,8 @@ class PropertyDevice(object):
             st.wait()
             return st
 
-        if self._yaq_property._property["getter"]:
-            setattr(self, "set", types.MethodType(set,self))
+        if self._yaq_property._property["setter"]:
+            setattr(self, "set", types.MethodType(set, self))
 
     def describe(self) -> dict:
         out = dict()
