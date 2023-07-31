@@ -7,6 +7,7 @@ import time
 from typing import Dict
 
 from ._status import Status
+from ._property import PropertyDevice
 
 
 class Base:
@@ -20,6 +21,15 @@ class Base:
             self.name = name
         self.parent = None
         self._lock = threading.Lock()
+        self.children = list()
+        for key, prop in self.yaq_client.properties.items():
+            if key in ["destination", "position"]:
+                continue
+            if prop.type not in ["double"]:
+                continue
+            self.children.append(PropertyDevice(self, key))
+            if not hasattr(self, key):  # don't overwrite please
+                setattr(self, key, self.children[-1])
 
     def __repr__(self):
         name = self.yaq_name
