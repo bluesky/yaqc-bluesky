@@ -31,5 +31,5 @@ You can play with yaq on bluesky using our binder:
 ## happi support
 
 `yaqc_bluesky` provides support for [Happi](https://github.com/pcdshub/happi).
-Read more about yaq and Happi at [python.yaq.fyi/happi](https://python.yaq.fyi/happi).
+Read more about yaq and Happi at [yaq.fyi/blog/happi/](https://yaq.fyi/blog/happi/).
 
