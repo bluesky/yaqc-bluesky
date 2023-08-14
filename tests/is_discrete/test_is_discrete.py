@@ -15,14 +15,14 @@ config = pathlib.Path(__file__).parent / "config.toml"
 def test_identifier_is_in_read():
     d = yaqc_bluesky.Device(38383)
     read_keys = list(d.read().keys())
-    assert f"{d.name}_identifier" in read_keys
+    assert f"{d.name}_position_identifier" in read_keys
 
 
 @testing.run_daemon_entry_point("fake-discrete-hardware", config=config)
 def test_identifier_is_in_describe():
     d = yaqc_bluesky.Device(38383)
     describe_keys = list(d.describe().keys())
-    assert f"{d.name}_identifier" in describe_keys
+    assert f"{d.name}_position_identifier" in describe_keys
 
 
 @testing.run_daemon_entry_point("fake-discrete-hardware", config=config)
@@ -48,7 +48,7 @@ def test_set_read():
     d.set(470)
     time.sleep(1)
     out = d.read()
-    assert out[f"{d.name}_identifier"]["value"] == "blue"
+    assert out[f"{d.name}_position_identifier"]["value"] == "blue"
     d.set("green")
     time.sleep(1)
     out = d.read()

@@ -25,7 +25,7 @@ class Base:
         for key, prop in self.yaq_client.properties.items():
             if key in ["destination", "position"]:
                 continue
-            if prop.type not in ["double"]:
+            if prop.type not in ["double", "string"]:
                 continue
             self.children.append(PropertyDevice(self, key))
             if not hasattr(self, key):  # don't overwrite please
