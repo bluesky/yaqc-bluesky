@@ -31,9 +31,10 @@ class PropertyDevice(object):
 
     def describe(self) -> dict:
         out = dict()
-        out[f"{self.parent.name}_{self.name}_readback"] = {"dtype": "number", "shape": []}
+        out[f"{self.parent.name}_{self.name}_readback"] = {"dtype": "number", "shape": [], "source": f"yaq:{self.parent.yaq_name}"
+}
         if self._yaq_property._property["getter"]:
-            out[f"{self.parent.name}_{self.name}_setpoint"] = {"dtype": "number", "shape": []}
+            out[f"{self.parent.name}_{self.name}_setpoint"] = {"dtype": "number", "shape": [], "source": f"yaq:{self.parent.yaq_name}"}
         return out
 
     def read(self) -> dict:
@@ -43,4 +44,3 @@ class PropertyDevice(object):
         if self._yaq_property._property["getter"]:
             out[f"{self.parent.name}_{self.name}_setpoint"] = {"value": self._setpoint, "timestamp": ts}
         return out
-

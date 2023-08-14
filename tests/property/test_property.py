@@ -1,5 +1,4 @@
 import time
-import yaqc
 import happi
 import pathlib
 import appdirs
@@ -7,6 +6,8 @@ import yaqc_bluesky
 from yaqd_core import testing
 import numpy as np
 import tempfile
+import bluesky
+from bluesky import plans as bsp
 
 
 __here__ = pathlib.Path(__file__).parent
@@ -22,5 +23,27 @@ def test_property():
     assert np.isclose(device.position, 0.222)
 
 
-if __name__ == "__main__":
-    test_property()
+@testing.run_daemon_entry_point(
+    "fake-has-transformed-position", config=__here__ / "transformed-position-config.toml"
+)
+def test_count():
+    RE = bluesky.RunEngine()
+    d = yaqc_bluesky.Device(38999)
+    RE(bsp.count([d.native_destination, d.native_position, d.native_reference_position], num=5))
+
+
+@testing.run_daemon_entry_point(
+    "fake-has-transformed-position", config=__here__ / "transformed-position-config.toml"
+)
+def test_scan():
+    RE = bluesky.RunEngine()
+    d = yaqc_bluesky.Device(38999)
+    RE(
+        bsp.scan(
+            [d.native_destination, d.native_position, d.native_reference_position],
+            d.native_destination,
+            0,
+            1,
+            15,
+        )
+    )
