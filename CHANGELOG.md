@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [2023.8.0]
+
 ### Added
 - daemons supporting is-discrete now can be set according to their identifiers
 
@@ -82,7 +84,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.4.1...master
+[Unreleased]: https://github.com/bluesky/yaqc-bluesky/compare/v2023.8.0...master
+[2023.8.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.4.1...v2023.8.0
 [2022.4.1]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.4.0...v2022.4.1
 [2022.4.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2022.1.0...v2022.4.0
 [2022.1.0]: https://github.com/bluesky/yaqc-bluesky/compare/v2021.12.0...v2022.1.0
