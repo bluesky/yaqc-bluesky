@@ -26,7 +26,6 @@ class Base:
             if key in ["destination", "position"]:
                 continue
             if prop.type not in ["double"]:
-
                 continue
             self.children.append(PropertyDevice(self, key))
             if not hasattr(self, key):  # don't overwrite please
