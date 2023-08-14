@@ -12,7 +12,6 @@ from ._status import Status
 class PropertyDevice(object):
 
     def __init__(self, parent, name):
-        print(parent, name)
         self.parent = parent
         self.name = name
         self._yaq_property = self.parent.yaq_client.properties[self.name]
@@ -26,14 +25,15 @@ class PropertyDevice(object):
             st.wait()
             return st
 
-        if self._yaq_property._property["getter"]:
-            setattr(self, "set", types.MethodType(set,self))
+        if self._yaq_property._property["setter"]:
+            setattr(self, "set", types.MethodType(set, self))
 
     def describe(self) -> dict:
         out = dict()
-        out[f"{self.parent.name}_{self.name}_readback"] = {"dtype": "number", "shape": []}
+        out[f"{self.parent.name}_{self.name}_readback"] = {"dtype": "number", "shape": [], "source": f"yaq:{self.parent.yaq_name}"
+}
         if self._yaq_property._property["getter"]:
-            out[f"{self.parent.name}_{self.name}_setpoint"] = {"dtype": "number", "shape": []}
+            out[f"{self.parent.name}_{self.name}_setpoint"] = {"dtype": "number", "shape": [], "source": f"yaq:{self.parent.yaq_name}"}
         return out
 
     def read(self) -> dict:
@@ -43,4 +43,3 @@ class PropertyDevice(object):
         if self._yaq_property._property["getter"]:
             out[f"{self.parent.name}_{self.name}_setpoint"] = {"value": self._setpoint, "timestamp": ts}
         return out
-
