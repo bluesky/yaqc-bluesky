@@ -8,9 +8,11 @@ from ._is_sensor import IsSensor
 from ._has_measure_trigger import HasMeasureTrigger
 from ._has_mapping import HasMapping
 from ._has_dependent import HasDependent
+from ._is_discrete import IsDiscrete
 
 
-traits = [
+traits = [  # MRO goes from top to bottom
+    ("is-discrete", IsDiscrete),
     ("has-position", HasPosition),
     ("has-measure-trigger", HasMeasureTrigger),
     ("has-mapping", HasMapping),
