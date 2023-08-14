@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+- daemons supporting is-discrete now can be set according to their identifiers
+
 ### Changed
 - properties now appear as sub-devices
 
